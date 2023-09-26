@@ -11,7 +11,7 @@
 num = int(input("Enter a number: "))
 
 if num > 0:
-    if  num % 2 != 0:
+    if num % 2 != 0:
         result = "Positive odd number"
     else:
         result = "Positive even number"

@@ -11,5 +11,3 @@ gcd = min(first, second)
 while not (first % gcd == 0 and second % gcd == 0):
     gcd = gcd - 1
     print(gcd)
-
-

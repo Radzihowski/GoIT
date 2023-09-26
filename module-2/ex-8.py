@@ -7,4 +7,3 @@ result = 0
 for i in message:
     if i == 'r':
         result = result + 1
-

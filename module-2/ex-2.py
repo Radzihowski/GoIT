@@ -21,4 +21,3 @@ if is_permission == True and is_active == True or is_admin == True:
     access = True
 else:
     access = False
-
