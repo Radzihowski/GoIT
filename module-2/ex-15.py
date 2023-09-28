@@ -56,12 +56,14 @@ while True:
     char = input(">>> ")
     if char == "=":
         print(f"Result: {result}")
+        break
 
     if wait_for_number == True :
         try:
             operand = float(char)
             wait_for_number = False
-         except ValueError:
+            # result = result operator operand / I need to find the way how to pass operator
+        except ValueError:
             print(f"{operand} is not a number. Try again.")
 
     if  wait_for_number == False:
