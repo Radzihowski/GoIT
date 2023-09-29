@@ -50,23 +50,42 @@ result = None
 operand = None
 operator = None
 wait_for_number = True
-char = None
 
 while True:
-    char = input(">>> ")
-    if char == "=":
-        print(f"Result: {result}")
+    user_input = input(">>> ")
+    if user_input == "=":
         break
 
     if wait_for_number == True :
         try:
-            operand = float(char)
-            wait_for_number = False
-            # result = result operator operand / I need to find the way how to pass operator
+            operand = float(user_input)
         except ValueError:
             print(f"{operand} is not a number. Try again.")
+            continue
+        wait_for_number = False
+        if result is None:
+            result = operand
+        else:
+            if operator == '+':
+                result += operand
+            elif operator == '-':
+                result -= operand
+            elif operator == '/':
+                if operand == '0':
+                    print("Division by 0")
+                    continue
+                result /= operand
+            else:
+                result *= operand
+    else:
+        if user_input in "+-*/":
+            operator = user_input
+        else:
+            operator = None
 
-    if  wait_for_number == False:
-        operator = input(">>> ")
-        if operator not in ("+", "-", "/", "*"):
-            print(f"{operator} is not + - / *")
+        if operator is None:
+            print(f"{user_input} is not '+', '-', '/', '*'")
+        else:
+            wait_for_number = True
+
+print(f"Result: {result}")
