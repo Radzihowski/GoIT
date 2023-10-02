@@ -12,3 +12,9 @@
 # first(1, "Alex", "Boris")
 # second(3, comment_one="first", comment_two="second", comment_third="third")
 # second(10, comment_one="Alex", comment_two="Boris")
+
+def first(size, *comments):
+    return size + len(comments)
+
+def second(size, **comments):
+    return size + len(comments)
