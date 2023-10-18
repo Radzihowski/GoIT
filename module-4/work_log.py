@@ -37,3 +37,22 @@ cars2.append('Opel')
 print(cars2)
 cars2.insert(3, 'AMG')
 print(cars2)
+del cars2[0]
+print(cars2)
+a = cars2.remove('Tesla')
+print(cars2)
+b = cars2.pop(0)
+print(cars2)
+print(a)
+print(b)
+print('Opel' in cars2)
+print(cars2.count('Opel'))
+
+cars3 = ['VW', 'Tesla', 'BMW', 'Toyota', 'Ford', 'Opel', 'AMG']
+cars_sorted = sorted(cars3)
+print(cars_sorted)
+print(cars3)
+
+cars_sort = cars3.sort()
+print(cars_sort)
+print(cars3)
