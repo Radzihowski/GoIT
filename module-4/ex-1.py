@@ -2,7 +2,13 @@
 # від'ємними — у нас переплата, чи додатними, якщо необхідно сплатити за рахунками. Напишіть функцію amount_payment,
 # яка приймає на вхід список платежів, підсумовує додатні значення та повертає суму платежу наприкінці місяця.
 def amount_payment(payment):
+    sum = 0
+    for value in payment:
+        if value > 0:
+            sum = sum + value
+    return sum
 
+print(amount_payment([1, -3, 4]))
 
 
 
