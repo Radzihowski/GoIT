@@ -7,14 +7,19 @@
 # спосіб. Ваша функція має вміти обробляти списки будь-якої довжини.
 
 def format_ingredients(items):
-    str = ''
-    for values in range(len(items)):
-        str = str + values + ', '
-    return str
+    if len(items) == 1:
+        return items[0]
+    if len(items) < 1:
+        return ''
+    else:
+        return ', '.join(items[:-1]) + ' and ' + items[-1]
+
+
 
 print(format_ingredients(["2 eggs", "1 liter sugar", "1 tsp salt", "vinegar"]))
-
-
+print(format_ingredients(["2 eggs"]))
+print(format_ingredients(["2 eggs", "1 liter sugar"]))
+print(format_ingredients([]))
 
 
 
