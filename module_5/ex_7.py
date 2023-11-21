@@ -30,3 +30,6 @@ def translate(name: str) -> str:
         TRANS[ord(c)] = l
         TRANS[ord(c.upper())] = l.upper()
     return
+
+print(translate("Дмитро Короб"))
+print(translate("Олекса Івасюк"))
