@@ -14,3 +14,5 @@ print(MAP)
 
 result = '34 DE 5C b0'.translate(MAP)
 print(result)
+
+
