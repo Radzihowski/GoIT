@@ -25,10 +25,29 @@
 # ми використовуємо менеджер контексту with
 # поверніть із функції список котів із файлу у потрібному форматі
 
+# Solution for the cloud
 def get_cats_info(path):
-    ...
+    cat_dict = []
+
+    with open(path, 'r') as file:
+        for el in file:
+            list = el.split(',')
+            print(list)
+            cat_dict.append({'id': list[0], 'name': list[1], 'age': list[2].rstrip()})
+            print(cat_dict)
+
+    return cat_dict
 
 
+# My local solution
+def get_cats_info(path):
+    cat_dict = []
+
+    with open('cats.txt', 'r') as file:
+        for el in file:
+            list = el.split(',')
+            cat_dict.append({'id': list[0], 'name': list[1], 'age': list[2].rstrip()})
+            print(cat_dict)
 
 
-
+print(get_cats_info('cats.txt'))
