@@ -49,10 +49,11 @@ def get_recipe(path, search_id):
     receipt = {}
 
     with open('receipt.txt', 'r') as file:
-        for el in file:
-            data = el.rstrip().split(',')
+        for line in file:
+            data = line.rstrip().split(',')
             if data[0] == search_id:
-                return receipt({'id': data[0], 'name': data[1], 'ingredients': data[2:]})
+                return True
+                # return receipt.update({'id': data[0], 'name': data[1], 'ingredients': data[2:]})
             else:
                 return None
 
