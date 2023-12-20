@@ -44,23 +44,33 @@
 #         "1 cup crumbled feta cheese",
 #     ],
 # }
-
+#
+# Solution for the cloud
 def get_recipe(path, search_id):
-    receipt = {}
+    receip = {}
+
+    with open(path, 'r') as file:
+        for line in file:
+            data = line.rstrip().split(',')
+            if data[0] == search_id:
+                receip = ({'id': data[0], 'name': data[1], 'ingredients': data[2:]})
+                return receip
+            else:
+                return None
+
+
+# My local solution
+def get_recipe(path, search_id):
+    receip = {}
 
     with open('receipt.txt', 'r') as file:
         for line in file:
             data = line.rstrip().split(',')
             if data[0] == search_id:
-                return True
-                # return receipt.update({'id': data[0], 'name': data[1], 'ingredients': data[2:]})
+                receip = ({'id': data[0], 'name': data[1], 'ingredients': data[2:]})
+                return receip
             else:
                 return None
 
+
 print(get_recipe('receipt.txt', '60b90c1c13067a15887e1ae1'))
-
-
-
-
-
-
