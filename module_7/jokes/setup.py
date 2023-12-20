@@ -1,11 +1,14 @@
 from setuptools import setup
 
-setup(name='usefull',
-      version='0.1',
+setup(name='jokes',
+      version='0.0.1',
       description='Very usefull code',
       url='http://github.com/storborg/usefull',
       author='Flying Circus',
       author_email='flyingcircus@example.com',
       license='MIT',
-      packages=['usefull'],
+      packages=['jokes'],
+      install_requires=[
+          'markdown',
+      ],
       zip_safe=False)
