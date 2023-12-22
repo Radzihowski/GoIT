@@ -1,0 +1,91 @@
+Додавання не py файлів у пакет
+Коли вам потрібно додати до пакету на .py файл (зображення, README.md тощо) варто пам'ятати, що setuptools проігнорує
+всі не .py файли. Потрібно явно вказати додати файли в пакет, якщо вам це потрібно. Один зі способів додати файли в
+постачання — це вказати параметр include_package_data=True у виклику setup та прописати, які файли потрібно додати у
+постачання у MANIFEST.in.
+
+
+
+MANIFEST.in — це файл поряд з setup.py, і в ньому вказуються шляхи до всіх файлів, які потрібно додати у постачання.
+Приклад MANIFEST.in для додавання файлу README.md:
+
+
+
+include README.md
+
+
+І структура пакету буде:
+
+
+
+useful/
+    useful/
+        __init__.py
+        some_code.py
+        another_code.py
+    setup.py
+    MANIFEST.in
+    README.md
+
+
+Тепер файл README.md буде доданий до пакету і буде доступний. Шлях до файлів, які потрібно включити у постачання, може
+бути будь-яким відносно пакету.
+
+Якщо в нашому пакеті є залежності, щоб він запрацював, потрібно встановити додаткові пакети, потрібно їх всі прописати
+в параметрі install_requires:
+
+
+
+from setuptools import setup, find_namespace_packages
+
+setup(
+    name='useful',
+    version='1',
+    description='Very useful code',
+    url='http://github.com/dummy_user/useful',
+    author='Flying Circus',
+    author_email='flyingcircus@example.com',
+    license='MIT',
+    packages=find_namespace_packages(),
+    install_requires=['markdown'],
+)
+
+
+В цьому прикладі наш пакет буде вимагати встановити спочатку пакет markdown перед встановленням. Порядок встановлення
+залежностей визначає сам менеджер пакетів (pip наприклад).
+
+Якщо наш пакет містить застосунок, який можна викликати з консолі, зручно буде додати можливість виклику цього
+застосунку у будь-якому місці нашої системи з консолі. Для цього у виклику setup додамо ще один параметр — entry_points.
+ Цей параметр приймає словник, де ми можемо вказати список "точок входу" для ключа console_scripts.
+
+
+
+Наприклад, в нашому пакеті у модулі some_code.py є функція hello_world, яка виводить у консоль повідомлення Hello World!
+. Після встановлення пакету ми зможемо в будь-якому місці нашої системи виконати в консолі команду: helloworld і
+отримаємо у відповідь Hello World!.
+
+
+
+Щоб це працювало в системі, Python повинен викликатися при виклику файлів з розширенням .py та setup.py повинен бути
+змінений:
+
+
+
+from setuptools import setup, find_namespace_packages
+
+setup(
+    name='useful',
+    version='1',
+    description='Very useful code',
+    url='http://github.com/dummy_user/useful',
+    author='Flying Circus',
+    author_email='flyingcircus@example.com',
+    license='MIT',
+    packages=find_namespace_packages(),
+    install_requires=['markdown'],
+    entry_points={'console_scripts': ['helloworld = useful.some_code:hello_world']}
+)
+
+
+У списку точок входу console_scripts можуть бути файли, що виконуються (.exe), скрипти Bash, cmd, PowerShell і будь-який
+ інший файл, який операційна система зможе виконати.

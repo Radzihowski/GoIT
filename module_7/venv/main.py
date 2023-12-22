@@ -1,3 +1,0 @@
-import jokes
-
-print(jokes.)

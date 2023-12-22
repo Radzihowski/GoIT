@@ -1,0 +1,38 @@
+Консольний скрипт як пакет
+Якщо наш пакет містить застосунок, який можна викликати з консолі, зручно буде додати можливість виклику цього
+застосунку у будь-якому місці нашої системи з консолі. Для цього у виклику setup додамо ще один параметр — entry_points.
+ Цей параметр приймає словник, де ми можемо вказати список "точок входу" для ключа console_scripts.
+
+
+
+Наприклад, в нашому пакеті у модулі some_code.py є функція hello_world, яка виводить у консоль повідомлення Hello World!
+ Після встановлення пакету ми зможемо в будь-якому місці нашої системи виконати в консолі команду: helloworld і
+ отримаємо у відповідь Hello World!.
+
+
+
+Щоб це працювало в системі, Python повинен викликатися при виклику файлів з розширенням .py та setup.py повинен бути
+змінений:
+
+
+
+from setuptools import setup, find_namespace_packages
+
+setup(
+    name='useful',
+    version='1',
+    description='Very useful code',
+    url='http://github.com/dummy_user/useful',
+    author='Flying Circus',
+    author_email='flyingcircus@example.com',
+    license='MIT',
+    packages=find_namespace_packages(),
+    install_requires=['markdown'],
+    entry_points={'console_scripts': ['helloworld = useful.some_code:hello_world']}
+)
+
+
+
+
+У списку точок входу console_scripts можуть бути файли, що виконуються (.exe), скрипти Bash, cmd, PowerShell і будь-який
+ інший файл, який операційна система зможе виконати.
