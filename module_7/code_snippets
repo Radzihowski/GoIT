@@ -1,0 +1,13 @@
+Модуль 7. Теоретична_частина.ipynb
+
+Колаба - https://colab.research.google.com/drive/1lUh27SF4NJCIYus7lKKlw8gcTozg16uh?usp=sharing#scrollTo=wqZg1wqMTgKv
+Відосік 1 - https://www.youtube.com/watch?v=LP8j0wZUkn4
+Питання - https://docs.google.com/spreadsheets/d/1r7I7CSZQEMxoWJxIzR-XkAWXTeDs3ZSd/edit#gid=911904209
+
+Код
+py -m venv venv
+py -m venv activate
+python setup.py sdist bdist_wheel - створення архіву
+python -m venv ENV - створили віртуальне середовище
+pip install virtualenv - інсталяція віртуального середовища
+pip install -r requirements.txt - рекурсивно пройтись і зібрати вимоги
