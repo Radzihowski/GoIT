@@ -23,7 +23,7 @@
 def add_bonus(salary, bonus_percents):
     return salary * (1 + bonus_percents / 100)
 #
-# У тій самій папці лежить основний скрипт main.py, у якому ви б хотіли використати функцію add_bonus з
+# У тій самій папці лежить основний скрипт cs_1.py, у якому ви б хотіли використати функцію add_bonus з
 # salary_calculations.py. Щоб зробити це, нам достатньо імпортувати цю функцію:
 
 from salary_calculations import add_bonus
@@ -55,7 +55,7 @@ print(salary_with_bonus)    # 1150
 #
 # Робота з пакетами аналогічна роботі з модулями, ви можете імпортувати потрібну вам сутність (наприклад функцію),
 # імпортувавши модуль з пакету. Припустимо, що модуль salary_calculations.py ви розмістили у папці calculations поряд
-# з main.py, де вам знадобилася функція add_bonus з salary_calculations.py. В такому випадку ви можете імпортувати
+# з cs_1.py, де вам знадобилася функція add_bonus з salary_calculations.py. В такому випадку ви можете імпортувати
 # модуль salary_calculations.py:
 
 from calculations import salary_calculations
