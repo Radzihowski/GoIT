@@ -44,6 +44,35 @@
 # запис нового вмісту файлу output має бути або за допомогою методу writelines, або використовувати метод write
 def save_applicant_data(source, output):
 
+    with open(output, 'w') as file:
+        for aplicant in source:
+            data_line = f"{aplicant['name']},{aplicant['specialty']},{aplicant['math']}, {aplicant['lang']}, {aplicant['eng']}"
+            file.write(data_line)
 
+            print(save_applicant_data(source, 'output.txt'))
 
+            aplicant_data = [
+                {
+                    "name": "Kovalchuk Oleksiy",
+                    "specialty": 301,
+                    "math": 175,
+                    "lang": 180,
+                    "eng": 155,
+                },
+                {
+                    "name": "Ivanchuk Boryslav",
+                    "specialty": 101,
+                    "math": 135,
+                    "lang": 150,
+                    "eng": 165,
+                },
+                {
+                    "name": "Karpenko Dmitro",
+                    "specialty": 201,
+                    "math": 155,
+                    "lang": 175,
+                    "eng": 185,
+                },
+            ]
 
+save_applicant_data(aplicate_data, 'output.txt')
