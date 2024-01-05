@@ -40,11 +40,8 @@ def get_random_winners(quantity, *participants):
         return []
     else:
         participants_list = list(participants.keys())
-        print(participants_list)
-        lst = random.sample(participants_list, quantity)
-        random.shuffle(lst)
-        print(lst)
-        return(lst)
+        random.shuffle(participants_list)
+        return random.sample(participants_list, k=quantity)
 
 get_random_winners(2, 12)
 
