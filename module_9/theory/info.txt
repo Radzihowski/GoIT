@@ -1,0 +1,9 @@
+9.1 https://colab.research.google.com/drive/1V15nNx8_c-iJGzHYVGK4DlL_DHXJ2VxJ?usp=sharing#scrollTo=cpajb83JKEmv
+https://www.youtube.com/watch?v=qdT0pbnj9Uw&t=13s
+Урок Модуль 9. Функції (декоратори, замикання)
+09 January
+
+9.2 https://colab.research.google.com/drive/1lsDxlbLnZCuwUNy-Ny0bk5Euw-UnKEr1?usp=sharing#scrollTo=zQECtUijUhFs
+https://www.youtube.com/watch?v=D4dj6e4k5tM
+Урок Модуль 9. Функції (декоратори, замикання)
+11 January
