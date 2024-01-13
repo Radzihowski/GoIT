@@ -12,5 +12,5 @@ def num_counter(filename, n):
     order = counter.most_common(len(counter))
     return [i for i in order[:n]], [i for i in order[-n:]]
 
-most, least = num_counter('numbers.txt', 10)
+most, least = num_counter('../numbers.txt', 10)
 print(f"Most {most} \n Least {least}")

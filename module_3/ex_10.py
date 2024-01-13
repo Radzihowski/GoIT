@@ -24,3 +24,4 @@ def number_of_groups(n, k):
 
 
 print(number_of_groups(50, 7))
+print(factorial(5))
