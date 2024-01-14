@@ -17,29 +17,22 @@
 # Якщо число Фібоначчі зберігається у словнику cache, то функція fibonacci повертає число з кеша. Якщо його немає у
 # кеші, то ми обчислюємо число і поміщаємо його в кеш, і повертаємо з функції fibonacci.
 def caching_fibonacci():
-    cache = {}
-    def fibonacci(n):
-        if n <= 0:
-            return ValueError
-        elif n == 1:
-            return 0
-        elif n == 2:
-            return 1
-        else:
-            for value in range(3, n+1):
-                if value in cache:
-                    result = cache[value]
-                else
-            return (fibonacci(n - 1) + fibonacci(n - 2))
+    cache = {0: 0, 1: 1, 2: 1}
 
+    def fibonacci():
+        result = 1
+        for value in range(3, n+1):
+            if value in cache:
+                result = cache[value]
+            else:
+                print(f'this is {value} attempt')
+                result = fibonacci(value - 1) + fibonacci(value - 2)
+                print(f'after {value} we have {result}')
+                cache[value] = result
+                print(cache)
+                print('{} not in cache {}'.format(value, result))
+        return result
+    return fibonacci
 
-
-
-
-
-
-
-
-
-
-
+print(caching_fibonacci())
+print(caching_fibonacci())
