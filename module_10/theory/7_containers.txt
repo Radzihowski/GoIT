@@ -1,0 +1,52 @@
+Контейнери, створені за допомогою наслідування (UserList, UserDict, UserString).
+Часто для роботи потрібно створити об'єкти, які поводяться як стандартні контейнери Python, але з модифікованою
+поведінкою. Ви, звичайно, можете спробувати наслідувати dict, str, list, але це може призвести до ряду непередбачених
+помилок. Правильний спосіб отримати модифікований контейнер — це використовувати пакет collections та класи UserList,
+UserDict, UserString, які в ньому є.
+
+Всі ці класи поводяться точно як вбудовані контейнери з тією лише відмінністю, що самі дані лежать у полі data у цих
+класів і ви можете використовувати це поле на свій розсуд.
+
+
+from collections import UserDict
+
+class ValueSearchableDict(UserDict):
+    def has_in_values(self, value):
+        return value in self.data.values()
+
+as_dict = ValueSearchableDict()
+as_dict['a'] = 1
+as_dict.has_in_values(1)    # True
+as_dict.has_in_values(2)    # False
+
+
+У цьому прикладі ми створили клас, який поводиться як словник, але в ньому є додатковий метод, який перевіряє наявність
+деякого value серед значень у цьому словнику.
+
+from collections import UserList
+
+class CountableList(UserList):
+    def sum(self):
+        return sum(map(lambda x: int(x), self.data))
+
+countable = CountableList([1, '2', 3, '4'])
+countable.append('5')
+countable.sum()     # 15
+
+
+У цьому прикладі ми створили клас, який поводиться як список, але в ньому є метод sum , який повертає суму всього вмісту
+ цього класу, при цьому перетворюючи рядки на цілі числа.
+
+from collections import UserString
+
+class TruncatedString(UserString):
+    MAX_LEN = 7
+    def truncate(self):
+        self.data = self.data[:self.MAX_LEN]
+
+ts = TruncatedString('abcdefghjklmnop')
+ts.truncate()
+print(ts)   # abcdefg
+
+
+Останній приклад показує модифікований рядок з методом truncate, який обмежує розмір рядка до MAX_LEN символів.

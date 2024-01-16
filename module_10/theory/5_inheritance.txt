@@ -1,0 +1,51 @@
+Наслідування
+Основна сила об'єктно-орієнтованого програмування полягає саме в можливості наслідування класів. Наслідування дає
+можливість створювати нові класи, що містять атрибути батьківських класів.
+
+class Human:
+    name = ''
+    def voice(self):
+        print(f"Hello! My name is {self.name}")
+
+
+class Developer(Human):
+    field_description = "My Programming language"
+    language = ""
+    def make_some_code(self):
+        return f"{self.field_description} is {self.value}"
+
+
+class PythonDeveloper(Developer):
+    value = "Python"
+
+
+class JSDeveloper(Developer):
+    value = "JavaScript"
+
+
+p_dev = PythonDeveloper()
+p_dev.name = 'Bob'
+p_dev.voice()   # Hello! My name is Bob
+p_dev.make_some_code()  # My Programming language is Python
+
+
+js_dev = JSDeveloper()
+js_dev.make_some_code()  # My Programming language is JavaScript
+
+
+У цьому прикладі ми створили батьківський клас Human, який визначив, що у всіх є ім'я та метод voice.
+
+Далі ми розширили функціонал класу Human та створили клас Developer, який наслідується від Human і додає йому поля
+field_description та language і метод make_some_code. І щоб реалізувати функціонал розробника конкретною мовою, ми
+зробили два класи PythonDeveloper та JSDeveloper. Тепер, якщо ми захочемо додати функціонал у всі дочірні для Human
+класи, то для цього можна додати потрібні атрибути в Human і вони автоматично з'являться і в PythonDeveloper, і
+JSDeveloper. Якщо потрібно розширити функціонал всіх розробників, то можна додати потрібні атрибути до класу Developer.
+І якщо потрібно додати особливу поведінку класу розробників конкретною мовою, то можна додати або змінити атрибути
+класів PythonDeveloper або JSDeveloper.
+
+Таким чином у коді повинно бути лише одне місце, де визначено поведінку об'єкта. І якщо нам потрібно отримати інший
+об'єкт, який має цю поведінку і якісь свої особливості, ми можемо наслідуватись від класу з потрібними нам спільними
+атрибутами та додати унікальні.
+
+Цей підхід дозволяє писати менше коду та структурувати дані, створюючи моделі реальних об'єктів з їх характеристиками
+(полями) та поведінкою (методами).

@@ -1,0 +1,53 @@
+Власні винятки
+У Python широко використовується механізм винятків (Exceptions) для того, щоб дати зрозуміти коду, що викликає, що саме
+пішло не так і що з цим робити. На винятках також будують розгалуження коду, наприклад, ми очікуємо, що користувач введе
+ саме число, але він може ввести що завгодно:
+
+def input_number():
+    while True:
+        try:
+            num = input("Enter integer number: ")
+            return int(num)
+        except:
+            print(f'"{num}" is not a number. Try again')
+
+
+num = input_number()
+
+
+У цьому прикладі функція input_number вийде з нескінченного циклу тільки, коли користувач введе ціле число. Це приклад
+використання винятків у Python з метою управління потоком виконання.
+
+Коли ж ви пишете свій застосунок вам може знадобитися створити свої власні винятки, щоб обробляти їх на вищому рівні.
+Наприклад, ви очікуєте, що користувач повинен ввести ім'я, і це ім'я не повинно бути коротшим трьох символів і
+починатися з великої літери. Ви можете створити власний виняток, який буде викликатися, якщо введення користувача не
+пройшло цю перевірку. Тоді будь-який код, який викликатиме цю функцію, зможе коректно обробити цей конкретний випадок.
+
+import string
+
+class NameTooShortError(Exception):
+    pass
+
+class NameStartsFromLowError(Exception):
+    pass
+
+def enter_name():
+    name = input("Enter name: ")
+    if len(name) < 3:
+        raise NameTooShortError
+    if name[0] not in string.ascii_uppercase:
+        raise NameStartsFromLowError
+
+while True:
+    try:
+        name = enter_name()
+        break
+    except NameTooShortError:
+        print('Name is too short, need more than 3 symbols. Try again.')
+    except NameStartsFromLowError:
+        print('Name should start from capital letter. Try again.')
+
+
+У цьому прикладі ми створили власні винятки, наслідуючи батьківський клас для всіх винятків у Python — клас Exception.
+Далі у коді коректно обробили два випадки, коли користувач ввів занадто коротке ім'я, або коли ім'я починається не з
+великої літери.
