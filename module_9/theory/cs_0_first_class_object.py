@@ -52,4 +52,5 @@ print(sum_func(9, 3))
 sum_func = get_result('*')
 print(sum_func(9))
 
+# можна викликати через подвійні дужки
 print(get_result('*')(10))
