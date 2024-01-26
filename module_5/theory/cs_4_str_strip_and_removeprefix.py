@@ -30,20 +30,38 @@ def is_valid_phone(phone):
             return phone[:3] in codes_operators
         return False
 
+
 def phone_by_country(list_of_phones):
     phone_by_country_dict = dict()
     for i in range(len(list_of_phones)):
         phone = clean_up_phone(list_of_phones[i])
-        if phone.startswith('38'):
-            phone_by_country_dict.setdefault('UA', []).append(phone)
-        if phone.startswith('32'):
-            phone_by_country_dict.setdefault('IT', []).append(phone)
-        if phone.startswith('37'):
-            phone_by_country_dict.setdefault('GER', []).append(phone)
-        if phone.startswith('48'):
-            phone_by_country_dict.setdefault('PL', []).append(phone)
+        if is_valid_phone(phone):
+            if phone.startswith('38'):
+                phone_by_country_dict.setdefault('UA', []).append(phone)
+            elif phone.startswith('42'):
+                phone_by_country_dict.setdefault('IT', []).append(phone)
+            elif phone.startswith('37'):
+                phone_by_country_dict.setdefault('GER', []).append(phone)
+            elif phone.startswith('48'):
+                phone_by_country_dict.setdefault('PL', []).append(phone)
+            else:
+                phone_by_country_dict.setdefault('UNDEFINED', []).append(phone)
+    return phone_by_country_dict
 
 
+print(phone_by_country(phone_storage))
 
-for phone in phone_storage:
-    print(clean_up_phone(phone))
+
+def passed_controls():
+    for phone in phone_storage:
+        phone = clean_up_phone(phone)
+        is_valid = is_valid_phone(phone)
+        if is_valid:
+            print("Phone {:^4}| {:>20}| {:^4} valid".format(" ", phone, " " * 4))
+        else:
+            print("Phone {:^4}| {:>20}| {:^4} invalid".format(" ", phone, " " * 4))
+
+passed_controls()
+#
+# for phone in phone_storage:
+#     print(clean_up_phone(phone))
