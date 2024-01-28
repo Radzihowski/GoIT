@@ -4,7 +4,7 @@
 
 from pathlib import Path
 
-file_name = Path('./Temp')
+file_name = Path('../Temp')
 
 try:
     file = open(file_name/'Text.txt', 'r', encoding="utf-8")

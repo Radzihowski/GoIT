@@ -3,7 +3,7 @@
 
 from pathlib import Path
 
-file = Path('test_file.txt')
+file = Path('../test_file.txt')
 
 file.write_text("First line")
 file.write_text("Second line")

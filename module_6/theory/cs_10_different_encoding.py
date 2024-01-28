@@ -1,6 +1,6 @@
 from pathlib import Path
 
-folder = Path('Temp')
+folder = Path('../Temp')
 
 message = "Hello, Привіт"
 

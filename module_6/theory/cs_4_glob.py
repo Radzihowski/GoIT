@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-file_name = Path('.')
+file_name = Path('..')
 
 for elem in file_name.glob('*t*'):
     print(elem)

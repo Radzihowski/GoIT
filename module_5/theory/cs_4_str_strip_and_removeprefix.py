@@ -59,7 +59,7 @@ def passed_controls():
         if is_valid:
             print("Phone {:^4}| {:>20}| {:^4} valid".format(" ", phone, " " * 4))
         else:
-            print("Phone {:^4}| {:>20}| {:^4} invalid".format(" ", phone, " " * 4))
+            print("Phone {:^4}| {:<20}| {:^4} invalid".format(" ", phone, " " * 4))
 
 passed_controls()
 #

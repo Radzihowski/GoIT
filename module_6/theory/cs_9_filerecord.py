@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-folder = Path('Temp')
+folder = Path('../Temp')
 
 data = ['First line', 'Second line', 'Final line']
 

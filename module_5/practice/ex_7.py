@@ -24,12 +24,13 @@ TRANSLATION = ("a", "b", "v", "g", "d", "e", "e", "j", "z", "i", "j", "k", "l", 
 
 TRANS = {}
 
+for key, value in zip(CYRILLIC_SYMBOLS, TRANSLATION):
+    TRANS[ord(key)] = value
+    TRANS[ord(key.upper())] = value.upper()
 
 def translate(name: str) -> str:
-    for c, l in zip(CYRILLIC_SYMBOLS, TRANSLATION):
-        TRANS[ord(c)] = l
-        TRANS[ord(c.upper())] = l.upper()
-    return
+    return name.translate(TRANS)
 
+print(TRANS)
 print(translate("Дмитро Короб"))
 print(translate("Олекса Івасюк"))
