@@ -1,0 +1,11 @@
+8.1 https://colab.research.google.com/drive/1AJRtQmp0yB0ABR82WvwuMDcsT1uT9NG3?usp=sharing
+https://www.youtube.com/watch?v=WxP_Ap6ff0k
+Урок Модуль 8. Можливості деяких вбудованих пакетів Python
+Tutor Олег Осадчук
+26 December
+
+8.2 https://colab.research.google.com/drive/1oCTARZ-PHbTTwp32nerBMpCWCJdj7KiE?usp=sharing
+https://www.youtube.com/watch?v=Pxrk5LIJVRs
+Урок Модуль 8. Можливості деяких вбудованих пакетів Python
+Tutor Олег Осадчук
+28 December

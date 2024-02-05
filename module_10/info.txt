@@ -1,0 +1,11 @@
+10.1 https://colab.research.google.com/drive/1P2wF2T1PS_O8q6sjm8fVaGlj4ssfVwTh?usp=sharing
+https://www.youtube.com/watch?v=Js42K6ZfhG4
+Урок Модуль 10. Основи роботи з класами
+Дмитро Кущевський
+16 January
+
+10.2 https://colab.research.google.com/drive/1FnmHnbhStQpodQ0BoGNAHobDBtbtOYfT?usp=sharing
+https://www.youtube.com/watch?v=i69Bb7EGOFc
+Урок Модуль 10. Основи роботи з класами
+Олег Осадчук
+18 January

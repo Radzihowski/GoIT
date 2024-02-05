@@ -1,9 +1,11 @@
-12.1 https://colab.research.google.com/drive/10BqtnTBVCpt6os4LyW_SHYLnuXdOEA74?usp=sharing#scrollTo=qjdFaZYHMzlK
-TBU
-Урок Модуль 12
+12.1 https://colab.research.google.com/drive/10BqtnTBVCpt6os4LyW_SHYLnuXdOEA74?usp=sharing
+https://www.youtube.com/watch?v=cLo-5D-4NHY
+Урок Модуль 12 Серіалізація та копіювання об'єктів
+Олег Осадчук
 30 January
 
-9.2 TBU
-TBU
-Урок Модуль 12
+9.2 https://colab.research.google.com/drive/1drfDd4mGQ5ic4YLQElEtovh6Hovh0GgT?usp=sharing
+https://www.youtube.com/watch?v=Vlo1GBqIPls
+Урок Модуль 12 Серіалізація та копіювання об'єктів
+Олег Осадчук
 1 February

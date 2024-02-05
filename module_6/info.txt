@@ -1,0 +1,11 @@
+6.1 https://colab.research.google.com/drive/1CjxvJBTCdPdUSTqGrIWm2txFF9DKGj0W?usp=sharing
+https://www.youtube.com/watch?v=rRa90QqHY1w
+Урок Модуль 6. Робота з файлами
+Tutor Олег Осадчук
+12 December
+
+6.2 https://colab.research.google.com/drive/1FOvg1L_HpoIU8vrwoyyWgP8MBdgPpoEB?usp=sharing
+https://www.youtube.com/watch?v=CVZSpZnZ5SQ
+Урок Модуль 6. Робота з файлами
+Tutor Олег Осадчук
+14 December
