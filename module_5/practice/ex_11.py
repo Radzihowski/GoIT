@@ -10,7 +10,8 @@ import re
 
 
 def find_all_words(text, word):
-    word_pattern = "^\S*\s|\s\S*\s|\s\S*$"
-    result = re.findall(word_pattern, text)
-    print(result)
+    result = re.findall(word, text, flags=re.IGNORECASE)
     return result
+
+
+
