@@ -1,21 +1,13 @@
-# Область видимості
+# Напишіть програму, яка для двох додатних цілих чисел знаходить НСД.
+#
+# Примітка: Для умови циклу в пункті 3 необхідно пам'ятати, що цикл while виконується за умови True, а наш цикл повинен
+# закінчитися, тільки якщо gcd поділив обидва числа без залишку.
 
-x = 50
+first = int(input("Enter the first integer: "))
+second = int(input("Enter the second integer: "))
 
-def test_global():
-    global x
-    print(f'x is equal {x}')
-    x = 2
-    print(f'x was changed to {x}')
+gcd = min(first, second)
 
-test_global()
-print(x)
-
-def outer():
-    y = 'Hello World!'
-
-    def inner_func():
-        y = 'nonlocal var y'
-        print(f'Inner func: {y}')
-
-outer()
+while not (first % gcd == 0 and second % gcd == 0):
+    gcd = gcd - 1
+    print(gcd)

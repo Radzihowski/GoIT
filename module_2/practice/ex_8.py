@@ -1,10 +1,9 @@
-def seconds(seconds=0, minutes=0, hours=0, days=0):
-    number_seconds_in_minutes = 60
-    number_seconds_in_hours = 60 * number_seconds_in_minutes
-    number_seconds_in_days = 24 * number_seconds_in_hours
+# Рядок — це об'єкт, що ітерується, а, значить, ми можемо використовувати його в циклі for. Підрахуйте в заданому рядку
+# message кількість входжень символу зі змінної search. Результат помістіть у змінну result.
 
-    return seconds + minutes * number_seconds_in_minutes + \
-        hours * number_seconds_in_hours + \
-        days * number_seconds_in_days
-
-print(seconds(minutes=5, days=1, seconds=6))
+message = "Never argue with stupid people, they will drag you down to their level and then beat you with experience."
+search = "r"
+result = 0
+for i in message:
+    if i == 'r':
+        result = result + 1
