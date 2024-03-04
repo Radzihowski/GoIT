@@ -12,3 +12,14 @@
 # Підказки:
 # Використання nonlocal дозволяє функції apply_discount модифікувати змінну price, оголошену у зовнішній функції discount_price.
 # Для розрахунку зниженої ціни використовуйте формулу price * (1 - discount).
+
+def discount_price(price, discount):
+    def apply_discount():
+        nonlocal price
+        nonlocal discount
+        price = price * ( 1 - discount )
+
+    apply_discount()
+    return price
+
+print(discount_price(100, 0.1))
