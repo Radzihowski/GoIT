@@ -12,7 +12,7 @@ for user in users:
         birthday = datetime.strptime(user["birthday"], '%Y.%m.%d').date()
         prepared_users.append({"name": user['name'], 'birthday': birthday})
     except ValueError:
-        print(f'Некоректа дава народження для користувача {user["name"]}')
+        print(f'Некоректа дата народження для користувача {user["name"]}')
 
 
 print(prepared_users)

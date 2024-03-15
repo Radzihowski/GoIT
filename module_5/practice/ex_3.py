@@ -26,4 +26,4 @@ def sanitize_phone_number(phone):
 
     return result
 
-
+print(sanitize_phone_number('    +38(050)123-32-34'))
