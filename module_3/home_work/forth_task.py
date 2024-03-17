@@ -59,52 +59,51 @@ users = [
     {"name": "Jane Ohara", "birthday": "1985.01.27"},
     {"name": "Jane Smith", "birthday": "1990.03.20"}
 ]
-print(users)
-# Друга функція
-prepared_users = []
-for user in users:
-    try:
-        birthday = datetime.strptime(user['birthday'], "%Y.%m.%d").date()
-        prepared_users.append({"name": user['name'], 'birthday': birthday})
-    except ValueError:
-        print(f'Некоректа дата народження для користувача {user["name"]}')
 
-print(prepared_users)
+def get_upcoming_birthdays(users):
+    prepared_users = []
+    for user in users:
+        try:
+            birthday = datetime.strptime(user['birthday'], "%Y.%m.%d").date()
+            prepared_users.append({"name": user['name'], 'birthday': birthday})
+        except ValueError:
+            print(f'Некоректа дата народження для користувача {user["name"]}')
 
+    # print(prepared_users)
 
-# Друга функція
-def find_next_weekday(d, weekday: int):
-    """
-    Функція для знаходження заданного дня тиждня після заданоі дати
-    :param d: datatime.date - початкова дата
-    :param weekday: int - день тиждня від 0(понеділок) до 6(неділя)
-    :return: буде перевіряти цю різницю
-    """
+    def find_next_weekday(d, weekday: int):
+        """
+        Функція для знаходження заданного дня тиждня після заданоі дати
+        :param d: datatime.date - початкова дата
+        :param weekday: int - день тиждня від 0(понеділок) до 6(неділя)
+        :return: буде перевіряти цю різницю
+        """
 
-    days_ahead = weekday - d.weekday()
-    if days_ahead <= 0:  # Якщо день народження вже минув
-        days_ahead += 7
-    return d + timedelta(days=days_ahead)
+        days_ahead = weekday - d.weekday()
+        if days_ahead <= 0:  # Якщо день народження вже минув
+            days_ahead += 7
+        return d + timedelta(days=days_ahead)
 
+    days = 7
+    today = datetime.today().date()
+    upcoming_birthdays = []
 
-days = 7
-today = datetime.today().date()
-upcoming_birthdays = []
+    for user in prepared_users:
+        birthday_this_year = user["birthday"].replace(year=today.year)  # 1985 -> 2024
 
-for user in prepared_users:
-    birthday_this_year = user["birthday"].replace(year=today.year)  # 1985 -> 2024
+        if birthday_this_year < today:
+            birthday_this_year = birthday_this_year.replace(year=today.year + 1)
 
-    if birthday_this_year < today:
-        birthday_this_year = birthday_this_year.replace(year=today.year + 1)
+        if 0 <= (birthday_this_year - today).days <= days:
+            if birthday_this_year.weekday() >= 5:  # Субота і Неділя
+                birthday_this_year = find_next_weekday(birthday_this_year, 0)  # це буде Понеділок
 
-    if 0 <= (birthday_this_year - today).days <= days:
-        if birthday_this_year.weekday() >= 5: # Субота і Неділя
-            birthday_this_year = find_next_weekday(birthday_this_year, 0) # це буде Понеділок
+            congratulation_date_str = birthday_this_year.strftime('%Y.%m.%d')
+            upcoming_birthdays.append({
+                "name": user["name"],
+                "congratulation_date": congratulation_date_str
+            })
 
-        congratulation_date_str = birthday_this_year.strftime('%Y.%m.%d')
-        upcoming_birthdays.append({
-            "name": user["name"],
-            "congratulation_date": congratulation_date_str
-        })
+    return upcoming_birthdays
 
-print(upcoming_birthdays)
+print("Список привітань на цьому тижні:", get_upcoming_birthdays(users))
