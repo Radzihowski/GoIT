@@ -1,6 +1,6 @@
 from pathlib import Path
 
-folder = Path('./temp')
+folder = Path('temp')
 
 try:
     with open(folder / 'test.txt', 'r') as f:
