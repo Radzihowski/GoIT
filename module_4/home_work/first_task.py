@@ -32,3 +32,36 @@
 
 # Очікуваний результат:
 # Загальна сума заробітної плати: 6000, Середня заробітна плата: 2000
+
+from pathlib import Path
+def total_salary(path) -> tuple:
+    total = 0.0
+    num_salarys = 0
+    file_path = Path(path)
+
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                try:
+                    name, salary = line.split(',')
+                    total += float(salary)
+                    num_salarys += 1
+
+                except ValueError:
+                    continue
+
+    except FileNotFoundError:
+        return "Не вдалося знайти файл з зарплатою."
+
+    except Exception as e:
+        print("Error: ", e)
+
+    def calculation_average(total, num_salarys) -> float:
+        return total / num_salarys
+
+    average = calculation_average(total, num_salarys)
+
+    return total, average
+
+total, average = total_salary('salary_file.txt')
+print(f"Загальна сума заробітної плати: {total}, Середня заробітна плата: {average}")
