@@ -21,10 +21,6 @@ class CommandCreateXMLOrder(Command):
     def execute(self) -> None:
         self._receiver.createXMLOrder(self._text)
 
-class CommandSendEamil(Command):
-    def __init__(self, receiver, html: str) -> None:
-        self._receiver.createXMLOrder(self._text)
-
 class CommandSendEmail(Command):
     def __init__(self, receiver, html: str) -> None:
         self._receiver = receiver
@@ -56,9 +52,31 @@ class Invoker:
 
 def client():
     invoker = Invoker()
-    invoker.set_on_order(CommandSendEamil(Receiver(), "Send email"))
+    invoker.set_on_order(CommandSendEmail(Receiver(), "Send email"))
     invoker.set_on_email(CommandCreateXMLOrder(Receiver(), "Save report"))
     invoker.generate_general_order()
 
 if __name__ == "__main__":
     client()
+
+# Виведення:
+#
+# Send email: Send email
+# Create XML order: Save report
+#
+# Відправник клас Invoker зберігає посилання на об'єкти команд, у нашому випадку self._on_order та self._on_email, і
+# звертається до них, коли потрібно виконати якусь дію. Він працює з командами лише через їхній спільний інтерфейс.
+# Він не знає, яку конкретно команду використовує, оскільки отримує готовий об'єкт команди від клієнта.
+#
+# Команда — абстрактний клас Command, описує загальний для всіх конкретних команд інтерфейс. Зазвичай, це один метод для
+# запуску команди.
+#
+# Конкретні команди, класи CommandCreateXMLOrder та CommandSendEmail, реалізують різні запити, дотримуючись спільного
+# інтерфейсу команд. Майже завжди команда передає виклик одержувачу об'єкту бізнес-логіки, клас Receiver.
+#
+# Одержувач клас Receiver містить бізнес-логіку програми, це може бути будь-який об'єкт. Зазвичай, команди
+# перенаправляють виклики одержувачам. Але іноді, щоб спростити програму, ви можете позбавитися одержувачів,
+# перемістивши їх код в класи команд.
+#
+# Клієнт, у нашому випадку функція client, створює об'єкти конкретних команд, передаючи в них усі необхідні параметри,
+# а іноді й посилання на об'єкти одержувачів. Після цього клієнт конфігурує відправників створеними командами.
