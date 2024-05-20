@@ -24,7 +24,6 @@ class Name(Field):
     def __str__(self):
         return str(self.value)
 
-
 class Phone(Field):
     def is_valid(self, value):
         return len(value) == 10 and value.isdigit()
@@ -47,7 +46,7 @@ class Record:
         if datetime(today.year, birthday.month, birthday.day).date() < today:
             next_birthday = (datetime(today.year + 1, birthday.month, birthday.day)).date()
         else:
-            next_birthday = datetime(today.year , birthday.month, birthday.day).date()
+            next_birthday = datetime(today.year, birthday.month, birthday.day).date()
 
         if next_birthday.isoweekday() in [6, 7]:
             congrats_date = next_birthday + timedelta(days=(8 - next_birthday.isoweekday()))
@@ -95,3 +94,4 @@ class AddressBook(UserDict):
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())
+
