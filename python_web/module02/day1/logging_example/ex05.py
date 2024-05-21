@@ -5,7 +5,8 @@ handler = TimedRotatingFileHandler(
     "daily_log.log", when="midnight", interval=1, backupCount=7
 )
 
-# Встановіть базовий рівінь логування
+
+# Встановіть базовий рівень логування
 logging.basicConfig(level=logging.INFO)
 
 # Додайте обробник до основного логера

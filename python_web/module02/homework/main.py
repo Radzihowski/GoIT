@@ -1,4 +1,4 @@
-from cli import *
+from python_web.module02.homework2.cli import *
 from datetime import datetime, timedelta
 import pickle
 from colorama import Fore

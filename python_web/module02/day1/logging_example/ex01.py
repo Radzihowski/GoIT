@@ -1,7 +1,7 @@
 import logging
 
 logging.basicConfig(
-    level=logging.ERROR, format="%(asctime)s %(funcName)15s - %(message)"
+    level=logging.INFO, format="%(asctime)s %(funcName)15s - %(message)s"
 )
 
 
