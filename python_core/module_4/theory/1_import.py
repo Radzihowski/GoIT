@@ -52,18 +52,18 @@ sin_pi = sin(pi)
 # свій простір імен, що відокремлює його визначення від інших модулів. Наприклад, якщо в іншому модулі існує функція з
 # такою ж назвою, це не призведе до конфлікту.
 #
-# Для використання цього модуля в іншому файлі Python, наприклад в main.py, ми імпортуємо його:
+# Для використання цього модуля в іншому файлі Python, наприклад в wariorsandknights.py, ми імпортуємо його:
 #
-# check code in main.py
+# check code in wariorsandknights.py
 #
-# Тут mymodule.say_hello("World") викликає функцію say_hello з модуля mymodule в середині скрипту main.py.
+# Тут mymodule.say_hello("World") викликає функцію say_hello з модуля mymodule в середині скрипту wariorsandknights.py.
 #
 # Ви також можете імпортувати функцію say_hello з mymodule.py за допомоги виразу from mymodule import say_hello у
 # будь-якому скрипті, в тій самій директорії, що і mymodule.py.
 #
-# Ми також можемо змінити назву функції say_hello в середині main.py, коли імпортуємо її з модуля mymodule.py
+# Ми також можемо змінити назву функції say_hello в середині wariorsandknights.py, коли імпортуємо її з модуля mymodule.py
 #
-# check code in main.py
+# check code in wariorsandknights.py
 #
 # У цьому прикладі, функція say_hello імпортується з модуля mymodule.py, але замість того, щоб використовувати її
 # безпосередньо як say_hello , ми надаємо їй псевдонім greeting. Тепер у нашому коді ми можемо використовувати greeting

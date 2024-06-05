@@ -41,4 +41,4 @@ def calculate_median(temperatures: list[float]) -> float:
 # (temperatures[mid - 1] + temperatures[mid]) / 2.
 # Якщо кількість елементів у списку непарна, медіаною буде елемент у центрі списку, тобто temperatures[mid].
 #
-# Головний файл main.py використовує функції з data.py та processing.py для виконання завдання.
+# Головний файл wariorsandknights.py використовує функції з data.py та processing.py для виконання завдання.
