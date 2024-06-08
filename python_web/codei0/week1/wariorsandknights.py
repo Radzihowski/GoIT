@@ -23,7 +23,7 @@ class Defender(Warrior):
         self.defence = defence
 
     def damage(self, attack):
-        if self.defence < attack
+        if self.defence < attack:
             return max(0, attack - self.defence)
 
     def loose(self, attack):
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # army_2.add_units(Warrior, 21)
     # battle = Battle()
     # battle.fight(army_1, army_2)
-    # battle tests
+    # # battle tests,
     # my_army = Army()
     # my_army.add_units(Knight, 3)
     # enemy_army = Army()
