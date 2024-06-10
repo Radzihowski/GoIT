@@ -4,7 +4,7 @@ import pickle
 from colorama import Fore
 
 
-def load_data(filename="addressbook.pkl"):  # Load existing or create a new Address Book
+def load_data(filename="data/addressbook.pkl"):  # Load existing or create a new Address Book
     try:
         with open(filename, "rb") as f:
             return pickle.load(f)
@@ -12,7 +12,7 @@ def load_data(filename="addressbook.pkl"):  # Load existing or create a new Addr
         return AddressBook()  # return new book if file not found
 
 
-def save_data(book, filename="addressbook.pkl"):  # save Address Book
+def save_data(book, filename="data/addressbook.pkl"):  # save Address Book
     with open(filename, "wb") as f:
         pickle.dump(book, f)
 
