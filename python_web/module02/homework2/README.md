@@ -6,4 +6,4 @@
 3) Pull image to server
 ```docker pull radzihowski/hw2:0.0.11```
 4) Run container on server
-```docker run it --name hw2oleksandr ```
+```docker run it --name hw2oleksandr -v```
