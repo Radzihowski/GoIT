@@ -1,3 +1,4 @@
+import abc
 from collections import UserDict
 from datetime import datetime, timedelta
 
@@ -94,4 +95,21 @@ class AddressBook(UserDict):
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())
+
+class ABCHandler(abc.ABC):
+    @abc.abstractmethod
+    def input_handler(self):
+        ...
+
+    @abc.abstractmethod
+    def output_handler(self):
+        ...
+
+class CLIHandler(ABCHandler):
+    def input_handler(self):
+        user_input = input("Enter a command: ")
+        return user_input
+
+    def output_handler(self):
+        ...
 

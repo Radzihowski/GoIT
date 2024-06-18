@@ -1,3 +1,3 @@
-from cli.cli_classes import AddressBook, Record, Birthday, Name, Phone
+from cli.cli_classes import AddressBook, Record, Birthday, Name, Phone, CLIHandler
 
-__all__ = ['AddressBook', 'Record', 'Birthday', 'Name', 'Phone']
+__all__ = ['AddressBook', 'Record', 'Birthday', 'Name', 'Phone', "CLIHandler"]
