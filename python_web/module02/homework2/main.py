@@ -180,20 +180,20 @@ def main():
     book = load_data()
     handler = CLIHandler()
     # book = AddressBook()
-    print("Welcome to the assistant bot!")
-    print(f"For a list of commands type {Fore.GREEN}help{Fore.RESET}")
+    handler.output_handler("Welcome to the assistant bot!")
+    handler.output_handler(f"For a list of commands type {Fore.GREEN}help{Fore.RESET}")
     while True:
         user_input = handler.input_handler()
         command, *args = parse_input(user_input)
 
         if command in ["close", "exit"]:
-            print("Good bye!")
+            handler.output_handler("Good bye!")
             save_data(book)
             break
         elif command in functions:
-            print(functions[command](args, book))
+            handler.output_handler(functions[command](args, book))
         else:
-            print("Invalid command.")
+            handler.output_handler("Invalid command.")
 
 
 if __name__ == "__main__":

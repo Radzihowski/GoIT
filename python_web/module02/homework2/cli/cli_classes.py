@@ -102,7 +102,7 @@ class ABCHandler(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def output_handler(self):
+    def output_handler(self, data):
         ...
 
 class CLIHandler(ABCHandler):
@@ -110,6 +110,6 @@ class CLIHandler(ABCHandler):
         user_input = input("Enter a command: ")
         return user_input
 
-    def output_handler(self):
-        ...
+    def output_handler(self, data):
+        print(data)
 
