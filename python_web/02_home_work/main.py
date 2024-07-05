@@ -2,9 +2,14 @@ from cli import *
 from datetime import datetime, timedelta
 import pickle
 from colorama import Fore
+from utils import py_logger
+
+
+logger = py_logger.get_logger(__file__)
 
 
 def load_data(filename="data/addressbook.pkl"):  # Load existing or create a new Address Book
+    logger.debug("start load data")
     try:
         with open(filename, "rb") as f:
             return pickle.load(f)
@@ -21,7 +26,8 @@ def input_error(func):  # Decorator function for error handling
     def inner(*args, **kwargs):
         try:
             return func(*args, **kwargs)
-        except ValueError:
+        except ValueError as error:
+            logger.error(error)
             if func.__name__ == 'create_contact':
                 return "Error creating a contact."
             if func.__name__ == 'phone':
@@ -177,6 +183,7 @@ functions = {
 
 
 def main():
+    logger.info("start of main file")
     book = load_data()
     handler = CLIHandler()
     # book = AddressBook()

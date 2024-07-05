@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class Field:
     def __init__(self, value):
         if not self.is_valid(value):
-            raise ValueError
+            raise ValueError("validation error")
         self.value = value
 
     def is_valid(self, value):
