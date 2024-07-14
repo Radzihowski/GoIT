@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 colorama = "^0.4.6"
+pre-commit = "^3.7.1"
+black = "^24.4.2"
+isort = "^5.13.2"
 
 
 [tool.poetry.group.dev.dependencies]

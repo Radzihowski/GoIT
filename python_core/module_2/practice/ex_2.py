@@ -5,7 +5,7 @@
 # Третя is_permission — чи дозволено доступ, теж булевого типу.
 # Приведіть змінні is_active, is_admin та is_permission до булевого вигляду.
 #
-# Надайте змінній access значення, яке покаже, чи є доступ у користувача. Використовуйте логічні оператори.
+# Надайте змінній access_control значення, яке покаже, чи є доступ у користувача. Використовуйте логічні оператори.
 #
 # Адміністратор завжди має доступ, незалежно від значень змінних is_permission та is_active.
 #
@@ -13,7 +13,7 @@
 
 is_active = bool(input("Is the user active? "))
 is_admin = bool(input("Is the user administrator? "))
-is_permission = bool(input("Does the user have access? "))
+is_permission = bool(input("Does the user have access_control? "))
 
 access = None
 
