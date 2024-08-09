@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 
 BASDIR = Path(__file__).parent
-UDP_IP = '127.0.0.1'
+UDP_IP = '0.0.0.0' # '127.0.0.1'
 UDP_PORT = 5000
 STORAGE_PATH = BASDIR.joinpath("storage", "data.json")
 
