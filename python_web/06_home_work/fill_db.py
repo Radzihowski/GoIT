@@ -13,5 +13,14 @@ def fill_students(n: int):
         '''
         run_query(sql, (first_name, second_name))
 
+def fill_groups(n: int):
+    for i in range(1,n+1):
+        name_of_the_group = "LA"+str(i)
+        print(name_of_the_group)
+        # sql = '''
+        #             INSERT INTO students(LA01,LA02,LA03) VALUES(%s,%s,%s);
+        #         '''
+
 if __name__ == "__main__":
-    fill_students(5)
+    # fill_students(5)
+    fill_groups(3)
