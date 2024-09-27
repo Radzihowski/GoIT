@@ -1,20 +1,43 @@
 import asyncio
+import logging
 import websockets
+from websockets import WebSocketServerProtocol
+from websockets.exceptions import ConnectionClosedOK
 
-async def hello(websocket):
-    name = await websocket.recv()
-    print(f"<<< {name}")
+logging.basicConfig(level=logging.INFO)
 
-    greeting = f"Hello {name}!"
+class Server:
+    client = set()
 
-    await websocket.send(greeting)
-    print(f">>> {greeting}")
+    async def register(self, ws: WebSocketServerProtocol):
+        self.clients.add(ws)
+        logging.info(f"{ws.remote_address} connects")
+
+    async def unregister(self, ws: WebSocketServerProtocol):
+        self.clients.remove(ws)
+        logging.info(f'{ws.remote_address} diconnects')
+
+    async def send_to_clients(self, message: str):
+        if self.client:
+            [await client.send(message) for client in self.clients]
+
+    async def ws_handler(self, ws: WebSocketServerProtocol):
+        await self.register(ws)
+        try:
+            await self.distrubute(ws)
+        except ConnectionClosedOK:
+            pass
+        finally:
+            await self.unregister(ws)
+
+    async def distrubute(self, ws: WebSocketServerProtocol):
+        async for message in ws:
+            await self.send_to_clients(message)
 
 async def main():
-    async with websockets.serve(hello, 'localhost', 8765):
-        await asyncio.Future() # run forever
+    server = Server()
+    async with websockets.serve(server.ws_handler, 'localhost', 4000):
+        await asyncio.Future()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     asyncio.run(main())
-
-    
