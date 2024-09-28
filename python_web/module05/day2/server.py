@@ -6,19 +6,20 @@ from websockets.exceptions import ConnectionClosedOK
 
 logging.basicConfig(level=logging.INFO)
 
+
 class Server:
-    client = set()
+    clients = set()
 
     async def register(self, ws: WebSocketServerProtocol):
         self.clients.add(ws)
-        logging.info(f"{ws.remote_address} connects")
+        logging.info(f'{ws.remote_address} connects')
 
     async def unregister(self, ws: WebSocketServerProtocol):
         self.clients.remove(ws)
-        logging.info(f'{ws.remote_address} diconnects')
+        logging.info(f'{ws.remote_address} disconnects')
 
     async def send_to_clients(self, message: str):
-        if self.client:
+        if self.clients:
             [await client.send(message) for client in self.clients]
 
     async def ws_handler(self, ws: WebSocketServerProtocol):
@@ -34,10 +35,11 @@ class Server:
         async for message in ws:
             await self.send_to_clients(message)
 
+
 async def main():
     server = Server()
     async with websockets.serve(server.ws_handler, 'localhost', 4000):
-        await asyncio.Future()
+        await asyncio.Future()  # run forever
 
 if __name__ == '__main__':
     asyncio.run(main())
