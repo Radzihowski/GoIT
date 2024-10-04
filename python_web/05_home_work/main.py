@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 
 import aiohttp
 
+
 async def get_data(session, day):
     # link = "https://660951750f324a9a28831e25.mockapi.io/test/exchange_rates"
     link = f'https://api.privatbank.ua/p24api/exchange_rates?date={day}'
@@ -58,7 +59,8 @@ def parse_exchange(exchanges:list[dict], currency:list):
     print(result)
     return result
 
-if __name__ == "__main__":
+
+def get_exchange():
     start = time.time()
     if platform.system() == 'Windows':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -68,3 +70,7 @@ if __name__ == "__main__":
         json.dump(parsed_data, f, ensure_ascii=False, indent=4)
     stop = time.time()
     print(f"Execution time = {stop - start}")
+    return parsed_data
+
+if __name__ == "__main__":
+    get_exchange()
