@@ -21,5 +21,12 @@ query_3 =  """
     ORDER BY g.id
 """
 
+query_4 =  """
+    SELECT *
+    FROM subjects AS s
+    WHERE s.teacher_id = 1
+"""
+
 if __name__ == "__main__":
-    print(run_query(query_3))
+    # print(run_query(query_3))
+    print(run_query(query_4))
