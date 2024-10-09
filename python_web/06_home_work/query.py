@@ -27,6 +27,13 @@ query_4 =  """
     WHERE s.teacher_id = 1
 """
 
+query_5 =  """
+    SELECT *
+    FROM students AS s
+    WHERE s.group_id = 1
+"""
+
 if __name__ == "__main__":
     # print(run_query(query_3))
-    print(run_query(query_4))
+    # print(run_query(query_4))
+    print(run_query(query_5))
