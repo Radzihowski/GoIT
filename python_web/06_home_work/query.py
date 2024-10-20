@@ -12,7 +12,7 @@ from connect import run_query
 # Список курсів, які певному студенту читає певний викладач.
 
 query_1 =  """
- SELECT st.first_name, round(avg(m.mark), 2) AS avg_grade
+    SELECT st.first_name, round(avg(m.mark), 2) AS avg_grade
     FROM marks m
     RIGHT JOIN students AS st ON st.id = m.student_id
     GROUP BY st.id
