@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "06-home-work"
+version = "0.1.0"
+description = ""
+authors = ["Radzihowski <a.radzihovskiy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+psycopg2 = "^2.9.9"
+faker = "^28.4.1"
+aiofile = "^3.8.8"
+numpy = "^2.1.1"
+connect = "^0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

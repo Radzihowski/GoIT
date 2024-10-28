@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "goit"
+version = "0.1.0"
+description = ""
+authors = ["Radzihowski <a.radzihovskiy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiofile = "^3.8.8"
+aiopath = "^0.7.7"
+aioshutil = "^1.5"
+aiohttp = "^3.10.5"
+websockets = "^13.1"
+jinja2 = "^3.1.4"
+alembic = "^1.13.3"
+sqlalchemy = "^2.0.36"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
