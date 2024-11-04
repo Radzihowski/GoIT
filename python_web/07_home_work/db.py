@@ -8,8 +8,8 @@ file_config = pathlib.Path(__file__).joinpath('config.ini')
 config = configparser.ConfigParser()
 config.read(file_config)
 
-username = config.get('DB', 'user')
-password = config.get('DB', 'password')
+username = config.get('DB', 'postgres')
+password = config.get('DB', 'mysecretpassword')
 db_name = config.get('DB', 'db_name')
 domain = config.get('DB', 'domain')
 
