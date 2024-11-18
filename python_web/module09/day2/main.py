@@ -45,7 +45,7 @@ if __name__ == '__main__':
         book = Book(img_url=el.get('img_url'), rating=el.get('rating'), title=el.get('title'), price=el.get('price'))
         session.add(book)
     session.commit()
-    books = session.query(Book).al
+    books = session.query(Book).all
     for b in books:
         print(vars(b))
     session.close()

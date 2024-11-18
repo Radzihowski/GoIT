@@ -1,7 +1,7 @@
-# Module 10
+# Module 3
 
 ## Video materials
-Урок 1 Модуль 10. Асинхронне програмування
+Урок Модуль 5. Асинхронне програмування
 Сергій Товстоног
 5.1 https://www.youtube.com/watch?v=4VxLZ5-CdGw
 21 травня
