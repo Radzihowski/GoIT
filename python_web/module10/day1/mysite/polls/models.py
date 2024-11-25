@@ -1,5 +1,14 @@
 from django.db import models
 
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "polls",
+]
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
