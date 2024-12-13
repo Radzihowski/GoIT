@@ -15,4 +15,5 @@ def tag(request):
             return redirect(to='noteapp:main')
         else:
             return render(request, 'noteapp/tag.html', {'form': form})
+
     return render(request, 'noteapp/tag.html', {'form': TagForm()})
