@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from python_web.module10.day2.notes.noteapp.forms import TagForm
+from .forms import TagForm
 
 
 # Create your views here.
