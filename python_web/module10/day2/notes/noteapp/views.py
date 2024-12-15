@@ -17,3 +17,5 @@ def tag(request):
             return render(request, 'noteapp/tag.html', {'form': form})
 
     return render(request, 'noteapp/tag.html', {'form': TagForm()})
+
+def note(request):
