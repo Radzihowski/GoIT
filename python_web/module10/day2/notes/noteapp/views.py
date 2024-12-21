@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import TagForm, NoteForm
-from .models import Tag
+from .models import Tag, Note
 
 
 # Create your views here.
