@@ -21,6 +21,7 @@ beautifulsoup4 = "^4.12.3"
 scrapy = "^2.11.2"
 django = "^5.1.4"
 psycopg2 = "^2.9.10"
+loginform = "^1.2.0"
 
 
 [build-system]

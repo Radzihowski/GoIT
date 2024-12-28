@@ -917,6 +917,20 @@ files = [
 ]
 
 [[package]]
+name = "loginform"
+version = "1.2.0"
+description = "Fill HTML login forms automatically"
+optional = false
+python-versions = "*"
+files = [
+    {file = "loginform-1.2.0-py2-none-any.whl", hash = "sha256:bc2910c21337130844f0fbea60959dc5664e743eb1f06e1218e7175d72c626af"},
+    {file = "loginform-1.2.0.tar.gz", hash = "sha256:e852eef73861d526f5904001225557c5a674d3b1eff739fd9f6c1751107c6b15"},
+]
+
+[package.dependencies]
+lxml = "*"
+
+[[package]]
 name = "lxml"
 version = "5.3.0"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
@@ -2111,4 +2125,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5e972f9bcdcadb2224c94ee285bb3dec0d007e8a0769b9cf549772fc37dd63e4"
+content-hash = "c6bfde0526f42b1f3030709a946ae49a9a392f6b217040a158f8172e2506b44b"
