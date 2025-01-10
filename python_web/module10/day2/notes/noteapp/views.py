@@ -22,7 +22,7 @@ def tag(request):
 
 def note(request):
     tags = Tag.objects.all()
-
+    print(tags)
     if request.method == 'POST':
         form = NoteForm(request.POST)
         if form.is_valid():

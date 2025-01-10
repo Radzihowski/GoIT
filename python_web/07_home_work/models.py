@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date
 from sqlalchemy.orm import relationship
 
-from .db import Base
+from db import Base
 
 
 class Teacher(Base):
@@ -33,11 +33,11 @@ class Subject(Base):
 
 
 class Mark(Base):
-    __table__ = 'marks'
+    __tablename__ = 'marks'
     id = Column(Integer, primary_key=True)
     grade = Column(Integer, nullable=False)
     date_of = Column('date_of', Date, nullable=False)
-    student_id = Column('student_id', ForeignKey('teacher.id', ondelete='CASCADE'))
+    student_id = Column('student_id', ForeignKey('students.id', ondelete='CASCADE'))
     subject_id = Column('subject_id', ForeignKey('subjects.id', ondelete='CASCADE'))
-    student = relationship('Student', backup='grade')
+    student = relationship('Student', backref='grade')
     subject = relationship('Subject', backref='grade')
