@@ -19,4 +19,4 @@ Base = declarative_base()
 engine = create_engine(url, echo=False, pool_size=2)
 
 DBSession = sessionmaker(bind=engine)
-session = DBSession
+session = DBSession()
