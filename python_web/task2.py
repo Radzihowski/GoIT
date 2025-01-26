@@ -16,7 +16,7 @@ print(add_value("Nick")) # повинно повернути {"names": ["Vlad", 
 data = {}
 
 def add_value(val: str):
-    data.
+    ...
 
 print(add_value("Vlad")) # повинно повернути {"names": ["Vlad"]}
 print(add_value("Nick")) # повинно повернути {"names": ["Vlad", "Nick"]}
