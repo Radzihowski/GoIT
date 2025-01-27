@@ -16,7 +16,13 @@ print(add_value("Nick")) # повинно повернути {"names": ["Vlad", 
 data = {}
 
 def add_value(val: str):
-    ...
+    if 'names' not in data.keys():
+        data['names'] = [val]
+    else:
+        data['names'].append(val)
+
+    return data
+
 
 print(add_value("Vlad")) # повинно повернути {"names": ["Vlad"]}
 print(add_value("Nick")) # повинно повернути {"names": ["Vlad", "Nick"]}
