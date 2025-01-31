@@ -1,7 +1,10 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 
-client = MongoClient() # TO DO Update credentials
+client = MongoClient(
+    "mongodb+srv://goitlearn:goitlearn@cluster1.vyvxf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1",
+    server_api=ServerApi('1')
+)
 
 db = client.book
 
@@ -9,16 +12,16 @@ result_one = db.cats.insert_one(
     {
         "name": "barsik",
         "age": 3,
-        "features":["ходить в капці", "дає себе гладити", "рудий"]
+        "features": ["ходить в капці", "дає себе гладити", "рудий"],
     }
 )
 
-print(result_one.insert_id)
+print(result_one.inserted_id)
 
 result_many = db.cats.insert_many(
     [
         {
-"name": "Lama",
+            "name": "Lama",
             "age": 2,
             "features": ["ходить в лоток", "не дає себе гладити", "сірий"],
         },
@@ -29,4 +32,4 @@ result_many = db.cats.insert_many(
         },
     ]
 )
-print(result_many.insert_ids)
+print(result_many.inserted_ids)
