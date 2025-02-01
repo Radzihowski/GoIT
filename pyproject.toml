@@ -23,6 +23,7 @@ django = "^5.1.4"
 psycopg2 = "^2.9.10"
 loginform = "^1.2.0"
 pymongo = {extras = ["srv", "tls"], version = "^4.11"}
+mongoengine = "^0.29.1"
 
 
 [build-system]
