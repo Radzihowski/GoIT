@@ -4,7 +4,6 @@
 для підключення до нашої хмарної БД MongoDB. Інші коментарі є в коді файлу seeds.py"""
 
 from models import Notes, Record, Tag
-import connect
 
 # спочатку - створити об'єкт Tag
 tag = Tag(name='Purchases')

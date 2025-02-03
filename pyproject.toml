@@ -24,6 +24,8 @@ psycopg2 = "^2.9.10"
 loginform = "^1.2.0"
 pymongo = {extras = ["srv", "tls"], version = "^4.11"}
 mongoengine = "^0.29.1"
+redis = "^5.2.1"
+redis-lru = "^0.1.2"
 
 
 [build-system]
