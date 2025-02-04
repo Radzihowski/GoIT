@@ -26,6 +26,7 @@ pymongo = {extras = ["srv", "tls"], version = "^4.11"}
 mongoengine = "^0.29.1"
 redis = "^5.2.1"
 redis-lru = "^0.1.2"
+pika = "^1.3.2"
 
 
 [build-system]
