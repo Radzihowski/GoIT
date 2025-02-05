@@ -16,5 +16,20 @@ def main():
     for i in range(5):
         message = {
             "id": i + 1,
-            "payload":
+            "payload": f"Task #{i+1}",
+            "date": datetime.now().isoformat()
         }
+
+        channel.basic_publish(
+            exchange='task_mock',
+            routing_key='task_queue',
+            body=json.dump(message).encode(),
+            properties=pika.BasicProperties(
+                delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
+            )
+        )
+        print(" [x] Sent %r" % message)
+    connection.close()
+
+if __name__ == '__main__':
+    main()
