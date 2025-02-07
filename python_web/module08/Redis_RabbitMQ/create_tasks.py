@@ -23,7 +23,7 @@ def main():
         channel.basic_publish(
             exchange='task_mock',
             routing_key='task_queue',
-            body=json.dump(message).encode(),
+            body=json.dumps(message).encode(),
             properties=pika.BasicProperties(
                 delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE
             )
