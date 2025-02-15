@@ -21,7 +21,11 @@ def fill_authors():
             author.save()
 
 def fill_quotes():
-    ...
+    with open("qoutes.json", 'r') as file:
+        quotes_list = json.load(file)
+        for el in quotes_list:
+            tags =
+
 
 if __name__ == "__main__":
     fill_authors()
