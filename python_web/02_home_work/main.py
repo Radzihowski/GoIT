@@ -183,7 +183,7 @@ functions = {
 
 
 def main():
-    logger.info("start of main.py file")
+    logger.info("start of fill_db.py file")
     book = load_data()
     handler = CLIHandler()
     # book = AddressBook()

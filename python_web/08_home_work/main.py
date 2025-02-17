@@ -1,31 +1,44 @@
-import json
 from pprint import pprint
-from models import Authors, Quotes
-from datetime import date, datetime
+import sys
 
-def fill_authors():
-    with open("authors.json", 'r') as file:
-        authors_list = json.load(file)
-        for el in authors_list:
-            fullname = el["fullname"]
-            born_date = el.get("born_date")
-            born_date_dt = datetime.strptime(born_date, "%B %d, %Y")
-            born_location = el.get("born_location")
-            description = el.get("description")
-            pprint(fullname)
-            pprint(born_date_dt)
-            pprint(born_location)
-            pprint(description)
-            author = Authors(fullname=fullname, born_date=born_date_dt, born_location=born_location,
-                             description=description)
-            author.save()
+class App:
+    def __init__(self):
+        self.commands = {"name": self.search_by_name,
+                         "tag": self.search_by_tag,
+                         "tags": self.search_by_tags,
+                         "exit": self.exit,
+                         }
 
-def fill_quotes():
-    with open("qoutes.json", 'r') as file:
-        quotes_list = json.load(file)
-        for el in quotes_list:
-            tags =
+    def search_by_name(self, value:str):
+        pass
+
+    def search_by_tag(self, tag:str):
+        pass
+
+    def search_by_tags(self, tags:str):
+        ...
+
+    def exit(self, *args):
+        pprint("Thank you! Have a nice day!")
+        sys.exit(0)
+    def run(self):
+        while True:
+            user_input = input("Enter search query in next format команда: значення >>> ")
+            if user_input == "exit":
+                self.exit()
+            if ":" not in user_input:
+                pprint("Command unknown. please use command in the next format команда: значення")
+                continue
+            command,value,*_ = user_input.split(":")
+            print(command, value)
+            command:str = command.strip()
+            if command not in self.commands:
+                print("Invalid command")
+                continue
+            self.commands[command](value)
+
 
 
 if __name__ == "__main__":
-    fill_authors()
+    app = App()
+    app.run()

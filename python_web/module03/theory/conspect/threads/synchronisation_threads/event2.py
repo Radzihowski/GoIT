@@ -25,4 +25,4 @@ if __name__ == "__main__":
     sleep(5)
     event.set()
 
-    logging.debug("End main.py program")
+    logging.debug("End fill_db.py program")
