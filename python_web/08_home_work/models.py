@@ -11,8 +11,14 @@ class Authors(Document):
     born_location = StringField()
     description = StringField()
 
+    def __str__(self):
+        return self.fullname + " " + str(self.born_date)
+
 
 class Quotes(Document):
     tags = ListField()
     author = ReferenceField(Authors)
     quote = StringField()
+
+    def __str__(self):
+        return self.quote
