@@ -1,6 +1,7 @@
 from mongoengine import EmbeddedDocument
 from mongoengine.fields import (ListField, StringField,
-                                DateField, ReferenceField, Document)
+                                DateField, ReferenceField, Document, BooleanField,
+                                EmailField)
 from db_connect import connect
 
 
@@ -22,3 +23,11 @@ class Quotes(Document):
 
     def __str__(self):
         return self.quote
+
+class Users(Document):
+    name = StringField()
+    is_send = BooleanField(default=False)
+    email = EmailField()
+
+    def __str__(self):
+        return self.name
