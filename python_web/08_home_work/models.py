@@ -28,6 +28,8 @@ class Users(Document):
     name = StringField()
     is_send = BooleanField(default=False)
     email = EmailField()
+    phone_number = StringField()
+    preferred_method = StringField()
 
     def __str__(self):
         return self.name

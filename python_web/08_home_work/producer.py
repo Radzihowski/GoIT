@@ -9,12 +9,13 @@ class Producer:
             pika.ConnectionParameters(host='localhost', port=5672, credentials=self.credentials))
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue='hw8')
-        self.faker = Faker()
+        self.faker = Faker('en_GB')
 
 
     def generate(self, n:int=20):
         for i in range(n):
-            user = Users(name=self.faker.name(), email=self.faker.email())
+            user = Users(name=self.faker.name(), email=self.faker.email(), phone_number=self.faker.phone_number(),
+                         preferred_method=self.faker.random_element(elements=("email", "phone")))
             user.save()
         print(f"Generated {n} users")
 
