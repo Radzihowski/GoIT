@@ -8,7 +8,8 @@ class Producer:
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host='localhost', port=5672, credentials=self.credentials))
         self.channel = self.connection.channel()
-        self.channel.queue_declare(queue='hw8')
+        self.channel.queue_declare(queue='email')
+        self.channel.queue_declare(queue='phone')
         self.faker = Faker('en_GB')
 
 
@@ -23,7 +24,7 @@ class Producer:
         users:list[Users] = Users.objects(is_send=False) # пошук юзера
         print(len(users))
         for user in users:
-            self.channel.basic_publish(exchange='', routing_key='hw8', body=str(user.pk).encode())
+            self.channel.basic_publish(exchange='', routing_key=user.preferred_method, body=str(user.pk).encode())
 
         # self.connection.close()
 def main():
