@@ -51,7 +51,13 @@ class Scraper:
             soup = BeautifulSoup(response.text, 'lxml')  # adding to the soup and reciving object soup
             fullname = soup.find('h3', class_='author-title').text.strip()
             pprint(fullname)
-            # TODO add born_date, born_location, description
+            born_date = soup.find('span', class_='author-born-date').text
+            pprint(born_date)
+            born_location = soup.find('span', class_='author-born-location').text.replace('in ', '')
+            pprint(born_location)
+            description = soup.find('div', class_='author-description').text.strip()
+            pprint(description)
+            pprint(type(description))
 
 
     def save_to_json(self, mode: str):
