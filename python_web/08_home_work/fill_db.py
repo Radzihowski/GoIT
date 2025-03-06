@@ -24,7 +24,7 @@ def fill_authors():
             author.save()
 
 def fill_quotes():
-    with open("qoutes.json", 'r', encoding='utf-8') as file:
+    with open("quotes.json", 'r', encoding='utf-8') as file:
         quotes_list = json.load(file)
         for el in quotes_list:
             tags = el.get("tags")

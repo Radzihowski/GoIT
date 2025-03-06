@@ -56,8 +56,10 @@ class Scraper:
             born_location = soup.find('span', class_='author-born-location').text.replace('in ', '')
             pprint(born_location)
             description = soup.find('div', class_='author-description').text.strip()
-            pprint(description)
+            print(description)
             pprint(type(description))
+            self.authors.append({"fullname": fullname, "born_date": born_date, "born_location": born_location,
+                                 "description": description})
 
 
     def save_to_json(self, mode: str):
@@ -83,6 +85,7 @@ if __name__ == "__main__":
     scraper.paginate()
     pprint(scraper.quotes)
     # pprint(len(scraper.quotes)) #just to check if all quotes
-    scraper.save_to_json(mode='authors')
+    scraper.save_to_json(mode='quotes')
     # pprint(scraper.authors_urls)
     scraper.autor_extractor()
+    scraper.save_to_json(mode='authors')
