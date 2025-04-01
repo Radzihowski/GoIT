@@ -56,3 +56,7 @@
     border: 1px solid #dddddd;
     border-radius: 15px;
 }
+
+.pager a {
+    color: #333333;
+}
