@@ -2,18 +2,16 @@ from typing import List
 from pprint import pprint
 
 from fastapi import APIRouter, HTTPException, Depends, status
-from sqlalchemy.orm import Session
+# from sqlalchemy.orm import Session
 from src.schemas.contacts import ContactRequest, ContactResponse
+from src.services.contacts import ContactService
 
 router = APIRouter(prefix='/contacts', tags=["contacts"])
 
 @router.post("/", response_model=ContactResponse)
 async def create_contact(body: ContactRequest):
-    contact_id = 1
-    response = dict(body)
-    pprint(body)
-    pprint(response)
-    response["id"] = contact_id
+    service = ContactService()
+    response = await service.create_contact(body)
     return response
 
 

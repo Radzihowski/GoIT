@@ -1,0 +1,3 @@
+class ContactCRUD:
+    async def create_contact(self, body):
+        ...
