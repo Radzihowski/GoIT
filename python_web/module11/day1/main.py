@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 
 app = FastAPI()
 
@@ -7,6 +7,10 @@ app = FastAPI()
 def root():
     return {"message": "Welcome to FastAPI!"}
 
+@app.get("/notes/new")
+async def read_new_notes():
+    return {"message": "Return new notes"}
+
 @app.get("/notes/{note_id}")
-async def read_note(note_id: int):
+async def read_note(note_id: int = Path(description="The ID of the note to get", gt=0, le=10)):
     return {"note": note_id}
