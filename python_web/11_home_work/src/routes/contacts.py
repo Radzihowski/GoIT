@@ -12,7 +12,7 @@ router = APIRouter(prefix='/contacts', tags=["contacts"])
 async def create_contact(body: ContactRequest):
     service = ContactService()
     response = await service.create_contact(body)
-    return response
+    return {"id":1}
 
 
 
