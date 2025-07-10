@@ -12,7 +12,8 @@ router = APIRouter(prefix='/contacts', tags=["contacts"])
 async def create_contact(body: ContactRequest):
     service = ContactService()
     response = await service.create_contact(body)
-    return {"id":1}
+    print(response)
+    return response
 
 
 
@@ -21,7 +22,7 @@ async def create_contact(body: ContactRequest):
 #     tags = await repository_tags.get_tags(skip, limit, db)
 #     return tags
 
-#
+#TODO do this next
 # @router.get("/{tag_id}", response_model=TagResponse)
 # async def read_tag(tag_id: int, db: Session = Depends(get_db)):
 #     tag = await repository_tags.get_tag(tag_id, db)
