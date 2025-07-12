@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Path, Query
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -45,6 +46,15 @@ async def read_notes(skip: int = 0, limit: int = Query(default=10, le=100, ge=10
 # Тіло запиту - це дані, які передаються разом з HTTP запитом на сервер. Вони можуть бути у форматі JSON, XML, або
 # іншому форматі, та використовуються для передачі додаткової інформації від клієнта до сервера, наприклад, форми даних,
 # файли або дані для створення або зміни об'єкта на сервері.
+
+class Note(BaseModel):
+    name: str
+    description: str
+    done: bool
+
+@app.post("/notes")
+async def create_note(note: Note):
+    return {"name": note.name, "description": note.description, "status": note.done}
 
 # В цьому прикладі ми створюємо клас Note, який визначає три поля: name (рядок str), description ( рядок str) та done
 # (булеве значення bool). Потім визначаємо функцію create_note, яка приймає аргумент note типу Note. Функція повертає
