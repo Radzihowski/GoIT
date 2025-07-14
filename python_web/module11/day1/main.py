@@ -1,3 +1,6 @@
+import json
+
+import requests
 from fastapi import FastAPI, Path, Query
 from pydantic import BaseModel
 
@@ -60,3 +63,17 @@ async def create_note(note: Note):
 # (булеве значення bool). Потім визначаємо функцію create_note, яка приймає аргумент note типу Note. Функція повертає
 # словник {"name": note.name, "description": note.description, "status": note.done}.
 # Декоратор @app.post("/notes") реєструє функцію create_note в якості обробника POST-запитів на маршрут /notes.
+
+# Наприклад, в Python за допомогою використання бібліотеки requests можна відправити тіло запиту у форматі JSON
+# наступним чином:
+data = {"name": "Test note", "description": "Testing", "done": False}
+headers = {'Content-type': 'application/json'}
+
+responce = requests.post('http://127.0.0.1:8000/notes', data=json.dumps(data), headers=headers)
+
+print(responce.json())
+
+# На цьому прикладі ми відправляємо POST-запит на URL http://127.0.0.1:8000/notes разом з тілом запиту у форматі JSON
+# та заголовком Content-type: application/json. FastAPI автоматично валідує тіло запиту та перетворює його в об'єкт
+# типу Note. Потім функція create_note буде викликана разом з аргументом note, що містить в собі об'єкт Note з полями
+# name="Test note", "description": "Testing" та "done": False.
