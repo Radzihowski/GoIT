@@ -13,3 +13,21 @@ class ContactService:
         result = await self.crud.create_contact(body)
         return {"id": result}
 
+
+    async def read_contact(self, contact_id:int):
+        result = await self.crud.read_contact(contact_id)
+        print(result)
+        if result is None:
+            raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")
+        return result
+
+    async def read_contacts(self, skip:int, limit:int):
+        result = await self.crud.read_contacts(skip, limit)
+        print(result)
+        return result
+
+    async def delete_contact(self, contact_id:int):
+        result = await self.crud.delete_contact(contact_id)
+        print(result)
+        if result == 0:
+            raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")

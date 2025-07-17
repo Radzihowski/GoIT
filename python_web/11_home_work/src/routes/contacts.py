@@ -1,7 +1,8 @@
 from typing import List
-from pprint import pprint
 
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, status
+
+from src.schemas.contacts import ContactInfo
 # from sqlalchemy.orm import Session
 from src.schemas.contacts import ContactRequest, ContactResponse
 from src.services.contacts import ContactService
@@ -16,22 +17,20 @@ async def create_contact(body: ContactRequest):
     return response
 
 
-
-# @router.get("/", response_model=List[TagResponse])
-# async def read_tags(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-#     tags = await repository_tags.get_tags(skip, limit, db)
-#     return tags
-
-#TODO do this next
-# @router.get("/{tag_id}", response_model=TagResponse)
-# async def read_tag(tag_id: int, db: Session = Depends(get_db)):
-#     tag = await repository_tags.get_tag(tag_id, db)
-#     if tag is None:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tag not found")
-#     return tag
-#
+@router.get("/", response_model=List[ContactInfo])
+async def read_contacts(skip: int = 0, limit: int = 100):
+    service = ContactService()
+    response = await service.read_contacts(skip, limit)
+    print(response)
+    return response
 
 
+@router.get("/{contact_id}", response_model=ContactInfo)
+async def read_contact(contact_id: int):
+    service = ContactService()
+    response = await service.read_contact(contact_id)
+    print(response)
+    return response
 #
 #
 # @router.put("/{tag_id}", response_model=TagResponse)
@@ -42,9 +41,7 @@ async def create_contact(body: ContactRequest):
 #     return tag
 #
 #
-# @router.delete("/{tag_id}", response_model=TagResponse)
-# async def remove_tag(tag_id: int, db: Session = Depends(get_db)):
-#     tag = await repository_tags.remove_tag(tag_id, db)
-#     if tag is None:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tag not found")
-#     return tag
+@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_contact(contact_id: int):
+    service = ContactService()
+    await service.delete_contact(contact_id)

@@ -38,3 +38,12 @@ class ContactResponse(BaseModel):  # визначаємо вихідні дан�
 
     class Config:
         from_attributes = True
+
+class ContactInfo(BaseModel):
+    id: int
+    first_name: str
+    last_name: str
+    email: str
+    phone: str
+    date_of_birth: date
+    info: str | None
