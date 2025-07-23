@@ -45,3 +45,16 @@ class ContactCRUD:
             result = await session.execute(query)
             print(result)
             return result.scalar()
+
+    async def update_contact(self, contact_id, body):
+        async with sessionmanager.session() as session:
+            query = select(Contact).where(Contact.id == contact_id)
+            print(query)
+            result = await session.execute(query)
+            print(result)
+            contact = result.scalar()
+            print(f"{contact=}")
+            if contact is None:
+                return None
+
+

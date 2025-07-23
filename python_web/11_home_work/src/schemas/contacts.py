@@ -1,8 +1,9 @@
 import re
 from datetime import date, timedelta, datetime
+from typing import Optional
 from pprint import pprint
 
-from pydantic import BaseModel, Field, PastDate, field_validator
+from pydantic import BaseModel, Field, PastDate, field_validator, model_validator
 
 
 class ContactRequest(BaseModel):  # визначаємо вхідні дані
@@ -25,7 +26,7 @@ class ContactRequest(BaseModel):  # визначаємо вхідні дані
     @field_validator('date_of_birth', mode='before')
     @classmethod
     def date_of_birth_checker(cls, value: str) -> date:
-        birth_day = datetime.strptime(value, "%d-%m-%Y").date()
+        birth_day = datetime.strptime(value, "%Y-%m-%d").date()
         date_18 = (datetime.now() - timedelta(days=18 * 365)).date()
         if date_18 < birth_day:
             raise ValueError("User must be 18+")
@@ -47,3 +48,24 @@ class ContactInfo(BaseModel):
     phone: str
     date_of_birth: date
     info: str | None
+
+class ContactUpdateRequest(BaseModel):
+    first_name: Optional[str] = ""
+    last_name: Optional[str] = ""
+    email: Optional[str] = ""
+    phone: Optional[str] = ""
+    date_of_birth: Optional[date] = None
+    info: Optional[str] = ""
+
+    @model_validator(mode="after")
+    def at_least_one_field(self):
+        if all([
+            self.first_name == "",
+            self.last_name == "",
+            self.email == "",
+            self.phone == "",
+            self.date_of_birth is None,
+            self.info == ""
+        ]):
+            raise ValueError("At least one field must be provided for update.")
+        return self

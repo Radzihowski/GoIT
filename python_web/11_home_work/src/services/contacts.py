@@ -1,4 +1,5 @@
 from src.repository.contacts import ContactCRUD
+from src.schemas.contacts import ContactUpdateRequest
 from fastapi import HTTPException
 class ContactService:
 
@@ -31,3 +32,9 @@ class ContactService:
         print(result)
         if result == 0:
             raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")
+
+    async def update_contact(self, contact_id:int, body: ContactUpdateRequest):
+        result = await self.crud.update_contact(contact_id, body)
+        if result is None:
+            raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")
+

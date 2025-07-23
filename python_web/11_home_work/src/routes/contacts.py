@@ -2,7 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, status
 
-from src.schemas.contacts import ContactInfo
+from src.schemas.contacts import ContactInfo, ContactUpdateRequest
 # from sqlalchemy.orm import Session
 from src.schemas.contacts import ContactRequest, ContactResponse
 from src.services.contacts import ContactService
@@ -31,16 +31,16 @@ async def read_contact(contact_id: int):
     response = await service.read_contact(contact_id)
     print(response)
     return response
-#
-#
-# @router.put("/{tag_id}", response_model=TagResponse)
-# async def update_tag(body: TagModel, tag_id: int, db: Session = Depends(get_db)):
-#     tag = await repository_tags.update_tag(tag_id, body, db)
-#     if tag is None:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Tag not found")
-#     return tag
-#
-#
+
+
+@router.put("/{contact_id}", response_model=ContactInfo)
+async def update_contact(contact_id: int, body: ContactUpdateRequest):
+    service = ContactService()
+    response = await service.update_contact(contact_id, body)
+    print(response)
+    return response
+
+
 @router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_contact(contact_id: int):
     service = ContactService()
