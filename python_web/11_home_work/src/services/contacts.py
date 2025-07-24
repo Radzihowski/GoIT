@@ -37,4 +37,9 @@ class ContactService:
         result = await self.crud.update_contact(contact_id, body)
         if result is None:
             raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")
+        return result
 
+    async def search_contacts(self, skip:int, limit:int, first_name:str, last_name:str, email:str):
+        result = await self.crud.search_contacts(skip, limit, first_name, last_name, email)
+        print(result)
+        return result

@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Query
 
 from src.schemas.contacts import ContactInfo, ContactUpdateRequest
 # from sqlalchemy.orm import Session
@@ -24,6 +24,15 @@ async def read_contacts(skip: int = 0, limit: int = 100):
     print(response)
     return response
 
+@router.get("/search", response_model=List[ContactInfo])
+async def search_contacts(skip: int = 0, limit: int = 100,
+                          first_name: str | None =Query(default=None),
+                          last_name: str | None =Query(default=None),
+                          email: str | None =Query(default=None)):
+    service = ContactService()
+    response = await service.search_contacts(skip, limit, first_name, last_name, email)
+    print(response)
+    return response
 
 @router.get("/{contact_id}", response_model=ContactInfo)
 async def read_contact(contact_id: int):
@@ -45,3 +54,5 @@ async def update_contact(contact_id: int, body: ContactUpdateRequest):
 async def delete_contact(contact_id: int):
     service = ContactService()
     await service.delete_contact(contact_id)
+
+
