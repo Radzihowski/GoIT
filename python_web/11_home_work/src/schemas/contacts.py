@@ -1,9 +1,8 @@
 import re
 from datetime import date, timedelta, datetime
 from typing import Optional
-from pprint import pprint
 
-from pydantic import BaseModel, Field, PastDate, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class ContactRequest(BaseModel):  # визначаємо вхідні дані

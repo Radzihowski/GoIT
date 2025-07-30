@@ -1,9 +1,11 @@
-from sqlalchemy import select, exists, delete, or_
+from datetime import datetime, timedelta
+
+from sqlalchemy import select, exists, delete, or_, func
 
 from src.database.db import sessionmanager
 from src.database.models import Contact
 from src.schemas.contacts import ContactUpdateRequest
-from datetime import datetime
+
 
 class ContactCRUD:
     # Function to add a user to the database
@@ -90,6 +92,33 @@ class ContactCRUD:
             query = select(Contact)
             if filters:
                 query = query.where(or_(*filters))
+
+            query = query.offset(skip).limit(limit).order_by(Contact.id)
+
+            result = await session.execute(query)
+            return result.scalars().all()
+
+    async def upcoming_dob(self, skip: int, limit: int, days_range: int):
+        async with sessionmanager.session() as session:
+            today = datetime.today().date()
+            target = today + timedelta(days=days_range)
+
+            today_str = today.strftime('%m-%d')
+            target_str = target.strftime('%m-%d')
+            print(today_str)
+            print(target_str)
+            dob_md = func.to_char(Contact.date_of_birth, 'MM-DD')
+            print(dob_md)
+            if today_str < target_str:
+                # Range within same year
+                query = select(Contact).where(
+                    dob_md.between(today_str, target_str)
+                )
+            else:
+                # Wraps over end of year (e.g., Dec 30 to Jan 5)
+                query = select(Contact).where(
+                    (dob_md >= today_str) | (dob_md <= target_str)
+                )
 
             query = query.offset(skip).limit(limit).order_by(Contact.id)
 

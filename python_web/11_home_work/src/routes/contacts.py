@@ -34,6 +34,14 @@ async def search_contacts(skip: int = 0, limit: int = 100,
     print(response)
     return response
 
+@router.get("/upcoming_dob", response_model=List[ContactInfo])
+async def upcoming_dob(skip: int = 0, limit: int = 100,
+                          days_range: int=Query(default=7, gt=1)):
+    service = ContactService()
+    response = await service.upcoming_dob(skip, limit, days_range)
+    print(response)
+    return response
+
 @router.get("/{contact_id}", response_model=ContactInfo)
 async def read_contact(contact_id: int):
     service = ContactService()

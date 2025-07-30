@@ -43,3 +43,8 @@ class ContactService:
         result = await self.crud.search_contacts(skip, limit, first_name, last_name, email)
         print(result)
         return result
+
+    async def upcoming_dob(self, skip:int, limit:int, days_range:int):
+        result = await self.crud.upcoming_dob(skip, limit, days_range)
+        print(result)
+        return result
