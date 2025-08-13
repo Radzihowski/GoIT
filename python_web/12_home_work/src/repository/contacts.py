@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 from sqlalchemy import select, exists, delete, or_, func
 
 from src.database.db import sessionmanager
@@ -28,7 +27,7 @@ class ContactCRUD:
             print(result)
             return result.scalar()
     async def read_contacts(self, skip:int, limit:int):
-        async  with sessionmanager.session() as session:
+        async with sessionmanager.session() as session:
             query = select(Contact).offset(skip).limit(limit)
             print(query)
             result = await session.execute(query)
