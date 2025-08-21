@@ -1,6 +1,6 @@
 # Створюємо репозиторій користувача
-from datetime import datetime, timedelta
-from sqlalchemy import select, exists, delete, or_, func
+from sqlalchemy import select, update
+from sqlalchemy.orm import Session
 
 from src.database.db import sessionmanager
 from src.database.models import User
@@ -16,17 +16,25 @@ async def get_user_by_email(email: str) -> User:
         return result.scalar()
 
 
-async def create_user(body: UserModel) -> User:
+async def create_user(body: UserModel) -> dict:
     async with sessionmanager.session() as session:
         async with session.begin():
             new_user = User(email=body.email, password=body.password)
             session.add(new_user)
             await session.flush()
             user_id = new_user.id
-        print(f"User {body.first_name} added successfully!")
-        return user
+            user_email = new_user.email
+            created_at = new_user.created_at
+        print(f"User {body.email} added successfully!")
+        return {"id": user_id, "email": user_email, "created_at": created_at}
 
 
-async def update_token(user: User, token: str | None, db: Session) -> None:
-    user.refresh_token = token
-    db.commit()
+async def update_token(user: User, token: str | None) -> None:
+    async with sessionmanager.session() as session:
+        stmt = (
+            update(User)
+            .where(User.id == user.id)     # ✅ filter by user!
+            .values(refresh_token=token)
+        )
+        await session.execute(stmt)
+        await session.commit()

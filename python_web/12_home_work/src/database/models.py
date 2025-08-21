@@ -16,6 +16,8 @@ class Contact(Base):
     date_of_birth = Column(Date, nullable=False)
     info = Column(Text, nullable=True)
     created_at = Column('created_at', DateTime, default=func.now())
+    user_id = Column('user_id', ForeignKey('users.id', ondelete='CASCADE'), default=None)
+    user = relationship('User', backref="contacts")
 
 class User(Base):
     __tablename__ = "users"
@@ -24,4 +26,5 @@ class User(Base):
     password = Column(String(255), nullable=False)
     refresh_token = Column(String(255), nullable=True)
     created_at = Column('created_at', DateTime, default=func.now())
+
 

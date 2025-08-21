@@ -5,7 +5,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-class UserModel(BaseModel):
+class UserModel(BaseModel): # pydentic class
     email: str
     password: str = Field(min_length=6, max_length=10)
 
