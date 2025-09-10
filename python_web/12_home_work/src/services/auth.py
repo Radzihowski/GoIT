@@ -74,7 +74,7 @@ class Auth:
         except JWTError as e:
             raise credentials_exception
 
-        user = await repository_users.get_user_by_email(email, db)
+        user = await repository_users.get_user_by_email(email)
         if user is None:
             raise credentials_exception
         return user

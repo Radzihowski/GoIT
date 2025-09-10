@@ -1,6 +1,9 @@
 from typing import List
 
-from fastapi import APIRouter, status, Query
+from fastapi import APIRouter, status, Query, Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from src.repository import users as repository_users
+from src.services.auth import auth_service
 
 from src.schemas.contacts import ContactInfo, ContactUpdateRequest
 # from sqlalchemy.orm import Session
@@ -8,9 +11,9 @@ from src.schemas.contacts import ContactRequest, ContactResponse
 from src.services.contacts import ContactService
 
 router = APIRouter(prefix='/contacts', tags=["contacts"])
-
+security = HTTPBearer()
 @router.post("/", response_model=ContactResponse)
-async def create_contact(body: ContactRequest):
+async def create_contact(body: ContactRequest, credentials: HTTPAuthorizationCredentials = Security(security)):
     service = ContactService()
     response = await service.create_contact(body)
     print(response)
@@ -18,9 +21,11 @@ async def create_contact(body: ContactRequest):
 
 
 @router.get("/", response_model=List[ContactInfo])
-async def read_contacts(skip: int = 0, limit: int = 100):
+async def read_contacts(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.read_contacts(skip, limit)
+    response = await service.read_contacts(skip, limit, user_id=user.id)
     print(response)
     return response
 

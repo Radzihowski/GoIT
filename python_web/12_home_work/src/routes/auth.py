@@ -38,15 +38,15 @@ async def login(body: UserModel, db: Session = Depends(get_async_session)):
 
 
 @router.get('/refresh_token', response_model=TokenModel)
-async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(security), db: Session = Depends(get_async_session)):
+async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     email = await auth_service.decode_refresh_token(token)
-    user = await repository_users.get_user_by_email(email, db)
+    user = await repository_users.get_user_by_email(email)
     if user.refresh_token != token:
-        await repository_users.update_token(user, None, db)
+        await repository_users.update_token(user, None)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token")
 
     access_token = await auth_service.create_access_token(data={"sub": email})
     refresh_token = await auth_service.create_refresh_token(data={"sub": email})
-    await repository_users.update_token(user, refresh_token, db)
+    await repository_users.update_token(user, refresh_token)
     return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}

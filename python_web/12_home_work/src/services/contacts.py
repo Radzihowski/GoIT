@@ -22,8 +22,8 @@ class ContactService:
             raise HTTPException(status_code=404, detail="Contact doesn't exists with such ID")
         return result
 
-    async def read_contacts(self, skip:int, limit:int):
-        result = await self.crud.read_contacts(skip, limit)
+    async def read_contacts(self, skip:int, limit:int, user_id:int):
+        result = await self.crud.read_contacts(skip, limit, user_id)
         print(result)
         return result
 

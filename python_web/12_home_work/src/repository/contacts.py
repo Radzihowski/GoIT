@@ -26,9 +26,9 @@ class ContactCRUD:
             result = await session.execute(query)
             print(result)
             return result.scalar()
-    async def read_contacts(self, skip:int, limit:int):
+    async def read_contacts(self, skip:int, limit:int, user_id:int):
         async with sessionmanager.session() as session:
-            query = select(Contact).offset(skip).limit(limit)
+            query = select(Contact).where(Contact.user_id==user_id).offset(skip).limit(limit)
             print(query)
             result = await session.execute(query)
             print(result)
