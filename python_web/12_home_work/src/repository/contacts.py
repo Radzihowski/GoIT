@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+
 from sqlalchemy import select, exists, delete, or_, func
 
 from src.database.db import sessionmanager
@@ -8,25 +9,30 @@ from src.schemas.contacts import ContactUpdateRequest
 
 class ContactCRUD:
     # Function to add a user to the database
-    async def create_contact(self, body):
+    @staticmethod
+    async def create_contact(body, user_id:int):
         async with sessionmanager.session() as session:
             async with session.begin():
                 new_user = Contact(first_name=body.first_name, last_name=body.last_name,
                                    email=body.email, phone=body.phone, date_of_birth=body.date_of_birth,
-                                   info=body.info)
+                                   info=body.info, user_id=user_id)
                 session.add(new_user)
                 await session.flush()
                 user_id = new_user.id
             print(f"User {body.first_name} added successfully!")
             return user_id
-    async def read_contact(self, contact_id:int):
+
+    @staticmethod
+    async def read_contact(contact_id:int, user_id:int):
         async  with sessionmanager.session() as session:
-            query = select(Contact).where(Contact.id == contact_id)
+            query = select(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             print(query)
             result = await session.execute(query)
             print(result)
             return result.scalar()
-    async def read_contacts(self, skip:int, limit:int, user_id:int):
+
+    @staticmethod
+    async def read_contacts(skip:int, limit:int, user_id:int):
         async with sessionmanager.session() as session:
             query = select(Contact).where(Contact.user_id==user_id).offset(skip).limit(limit)
             print(query)
@@ -34,16 +40,18 @@ class ContactCRUD:
             print(result)
             return result.scalars()
 
-    async def delete_contact(self, contact_id:int):
-        async  with sessionmanager.session() as session:
-            query = delete(Contact).where(Contact.id == contact_id)
+    @staticmethod
+    async def delete_contact(contact_id:int, user_id:int):
+        async with sessionmanager.session() as session:
+            query = delete(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             print(query)
             result = await session.execute(query)
             print(result)
             await session.commit()
             return result.rowcount
 
-    async def check_email(self, email):
+    @staticmethod
+    async def check_email(email):
         async with sessionmanager.session() as session:
             query = select(exists().where(Contact.email==email))
             print(query)
@@ -51,10 +59,10 @@ class ContactCRUD:
             print(result)
             return result.scalar()
 
-    async def update_contact(self, contact_id, body: ContactUpdateRequest):
+    @staticmethod
+    async def update_contact(contact_id, body: ContactUpdateRequest, user_id:int):
         async with sessionmanager.session() as session:
-            query = select(Contact).where(Contact.id == contact_id)
-            print(query)
+            query = select(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             result = await session.execute(query)
             print(result)
             contact = result.scalar()
@@ -78,9 +86,10 @@ class ContactCRUD:
             print(contact)
             return result.scalar()
 
-    async def search_contacts(self, skip:int, limit:int, first_name:str, last_name:str, email:str):
+    @staticmethod
+    async def search_contacts(skip:int, limit:int, first_name:str, last_name:str, email:str, user_id:int):
         async  with (sessionmanager.session() as session):
-            filters = []
+            filters = [Contact.user_id==user_id]
             if first_name:
                 filters.append(Contact.first_name.ilike(f"%{first_name}%"))
             if last_name:
@@ -97,7 +106,8 @@ class ContactCRUD:
             result = await session.execute(query)
             return result.scalars().all()
 
-    async def upcoming_dob(self, skip: int, limit: int, days_range: int):
+    @staticmethod
+    async def upcoming_dob(skip: int, limit: int, days_range: int, user_id: int):
         async with sessionmanager.session() as session:
             today = datetime.today().date()
             target = today + timedelta(days=days_range)
@@ -111,12 +121,12 @@ class ContactCRUD:
             if today_str < target_str:
                 # Range within same year
                 query = select(Contact).where(
-                    dob_md.between(today_str, target_str)
+                    Contact.user_id==user_id, dob_md.between(today_str, target_str)
                 )
             else:
                 # Wraps over end of year (e.g., Dec 30 to Jan 5)
                 query = select(Contact).where(
-                    (dob_md >= today_str) | (dob_md <= target_str)
+                    Contact.user_id==user_id, (dob_md >= today_str) | (dob_md <= target_str)
                 )
 
             query = query.offset(skip).limit(limit).order_by(Contact.id)

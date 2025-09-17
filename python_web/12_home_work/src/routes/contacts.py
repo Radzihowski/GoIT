@@ -14,8 +14,10 @@ router = APIRouter(prefix='/contacts', tags=["contacts"])
 security = HTTPBearer()
 @router.post("/", response_model=ContactResponse)
 async def create_contact(body: ContactRequest, credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.create_contact(body)
+    response = await service.create_contact(body, user_id=user.id)
     print(response)
     return response
 
@@ -30,42 +32,52 @@ async def read_contacts(credentials: HTTPAuthorizationCredentials = Security(sec
     return response
 
 @router.get("/search", response_model=List[ContactInfo])
-async def search_contacts(skip: int = 0, limit: int = 100,
+async def search_contacts(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100,
                           first_name: str | None =Query(default=None),
                           last_name: str | None =Query(default=None),
                           email: str | None =Query(default=None)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.search_contacts(skip, limit, first_name, last_name, email)
+    response = await service.search_contacts(skip, limit, first_name, last_name, email, user_id=user.id)
     print(response)
     return response
 
 @router.get("/upcoming_dob", response_model=List[ContactInfo])
-async def upcoming_dob(skip: int = 0, limit: int = 100,
+async def upcoming_dob(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100,
                           days_range: int=Query(default=7, gt=1)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.upcoming_dob(skip, limit, days_range)
+    response = await service.upcoming_dob(skip, limit, days_range, user_id=user.id)
     print(response)
     return response
 
 @router.get("/{contact_id}", response_model=ContactInfo)
-async def read_contact(contact_id: int):
+async def read_contact(contact_id: int, credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.read_contact(contact_id)
+    response = await service.read_contact(contact_id, user_id=user.id)
     print(response)
     return response
 
 
 @router.put("/{contact_id}", response_model=ContactInfo)
-async def update_contact(contact_id: int, body: ContactUpdateRequest):
+async def update_contact(contact_id: int, body: ContactUpdateRequest, credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    response = await service.update_contact(contact_id, body)
+    response = await service.update_contact(contact_id, body, user_id=user.id)
     print(response)
     return response
 
 
 @router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_contact(contact_id: int):
+async def delete_contact(contact_id: int, credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    user = await auth_service.get_current_user(token)
     service = ContactService()
-    await service.delete_contact(contact_id)
+    await service.delete_contact(contact_id, user_id=user.id)
 
 
