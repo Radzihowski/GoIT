@@ -15,4 +15,6 @@
 /python_web/05_home_work/pyproject.toml
 /python_web/03_home_work/dist/svg/sdfas.svg
 .idea
-
+venv/
+python_web/13_home_work/venv/
+__pycache__/
