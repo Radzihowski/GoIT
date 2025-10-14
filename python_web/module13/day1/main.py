@@ -13,12 +13,12 @@ class EmailSchema(BaseModel):
     email: EmailStr
 
 conf = ConnectionConfig(
-    MAIL_USERNAME="example@meta.ua",
-    MAIL_PASSWORD="secretPassword",
-    MAIL_FROM="example@meta.ua",
+    MAIL_USERNAME="",
+    MAIL_PASSWORD="",
+    MAIL_FROM="",
     MAIL_PORT=465,
     MAIL_SERVER="smtp.meta.ua",
-    MAIL_FROM_NAME="Example email",
+    MAIL_FROM_NAME="",
     MAIL_STARTTLS=False,
     MAIL_SSL_TLS=True,
     USE_CREDENTIALS=True,
