@@ -18,3 +18,5 @@
 venv/
 python_web/13_home_work/venv/
 __pycache__/
+.venv/
+.env
