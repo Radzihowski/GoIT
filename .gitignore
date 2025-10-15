@@ -17,6 +17,9 @@
 /python_web/13_home_work/venv/
 /python_web/13_home_work/.venv/
 /python_web/13_home_work/.env
+\python_web\13_home_work\.venv\
+\python_web\13_home_work\venv\
+\python_web\13_home_work\.env\
 .idea
 venv/
 python_web/13_home_work/venv/
