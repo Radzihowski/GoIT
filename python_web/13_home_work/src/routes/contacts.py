@@ -1,7 +1,8 @@
 from typing import List
 
-from fastapi import APIRouter, status, Query, Security
+from fastapi import APIRouter, status, Query, Security, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi_limiter.depends import RateLimiter
 from src.repository import users as repository_users
 from src.services.auth import auth_service
 
@@ -12,7 +13,8 @@ from src.services.contacts import ContactService
 
 router = APIRouter(prefix='/contacts', tags=["contacts"])
 security = HTTPBearer()
-@router.post("/", response_model=ContactResponse)
+@router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED,
+             dependencies=[Depends(RateLimiter(times=2, seconds=60))])
 async def create_contact(body: ContactRequest, credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)
@@ -22,7 +24,8 @@ async def create_contact(body: ContactRequest, credentials: HTTPAuthorizationCre
     return response
 
 
-@router.get("/", response_model=List[ContactInfo])
+@router.get("/", response_model=List[ContactInfo],
+            dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def read_contacts(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)
@@ -31,7 +34,8 @@ async def read_contacts(credentials: HTTPAuthorizationCredentials = Security(sec
     print(response)
     return response
 
-@router.get("/search", response_model=List[ContactInfo])
+@router.get("/search", response_model=List[ContactInfo],
+            dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def search_contacts(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100,
                           first_name: str | None =Query(default=None),
                           last_name: str | None =Query(default=None),
@@ -43,7 +47,8 @@ async def search_contacts(credentials: HTTPAuthorizationCredentials = Security(s
     print(response)
     return response
 
-@router.get("/upcoming_dob", response_model=List[ContactInfo])
+@router.get("/upcoming_dob", response_model=List[ContactInfo],
+            dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def upcoming_dob(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100,
                           days_range: int=Query(default=7, gt=1)):
     token = credentials.credentials
@@ -53,7 +58,8 @@ async def upcoming_dob(credentials: HTTPAuthorizationCredentials = Security(secu
     print(response)
     return response
 
-@router.get("/{contact_id}", response_model=ContactInfo)
+@router.get("/{contact_id}", response_model=ContactInfo,
+            dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def read_contact(contact_id: int, credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)
@@ -63,7 +69,8 @@ async def read_contact(contact_id: int, credentials: HTTPAuthorizationCredential
     return response
 
 
-@router.put("/{contact_id}", response_model=ContactInfo)
+@router.put("/{contact_id}", response_model=ContactInfo,
+            dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def update_contact(contact_id: int, body: ContactUpdateRequest, credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)
@@ -73,7 +80,8 @@ async def update_contact(contact_id: int, body: ContactUpdateRequest, credential
     return response
 
 
-@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT,
+               dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def delete_contact(contact_id: int, credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)

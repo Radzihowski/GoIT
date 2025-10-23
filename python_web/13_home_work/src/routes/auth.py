@@ -1,5 +1,6 @@
-from fastapi import APIRouter, HTTPException, status, Security, BackgroundTasks, Request
+from fastapi import APIRouter, HTTPException, status, Security, BackgroundTasks, Request, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi_limiter.depends import RateLimiter
 
 from src.repository import users as repository_users
 from src.schemas.users import UserModel, UserResponse, TokenModel
@@ -10,7 +11,8 @@ router = APIRouter(prefix='/auth', tags=["auth"])
 security = HTTPBearer()
 
 
-@router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED,
+             dependencies=[Depends(RateLimiter(times=1, seconds=60))])
 async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Request):
     exist_user = await repository_users.get_user_by_email(body.email)
     if exist_user:
@@ -21,7 +23,7 @@ async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Re
     return {"user": new_user, "detail": "User successfully created. Check your email for confirmation."}
 
 
-@router.post("/login", response_model=TokenModel)
+@router.post("/login", response_model=TokenModel, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def login(body: UserModel):
     user = await repository_users.get_user_by_email(body.email)
     if user is None:
@@ -35,7 +37,7 @@ async def login(body: UserModel):
     return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
 
 
-@router.get('/refresh_token', response_model=TokenModel)
+@router.get('/refresh_token', response_model=TokenModel, dependencies=[Depends(RateLimiter(times=2, seconds=60))])
 async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(security)):
     token = credentials.credentials
     email = await auth_service.decode_refresh_token(token)
@@ -50,7 +52,7 @@ async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(sec
     return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
 
 
-@router.get('/confirmed_email/{token}')
+@router.get('/confirmed_email/{token}', status_code=status.HTTP_200_OK, dependencies=[Depends(RateLimiter(times=1, seconds=60))])
 async def confirmed_email(token: str):
     email = await auth_service.get_email_from_token(token)
     user = await repository_users.get_user_by_email(email)
@@ -60,3 +62,4 @@ async def confirmed_email(token: str):
         return {"message": "Your email is already confirmed"}
     await repository_users.confirmed_email(email)
     return {"message": "Email confirmed"}
+
