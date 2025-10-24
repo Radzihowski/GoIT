@@ -25,8 +25,9 @@ async def create_user(body: UserModel) -> dict:
             user_id = new_user.id
             user_email = new_user.email
             created_at = new_user.created_at
+            avatar = new_user.avatar
         print(f"User {body.email} added successfully!")
-        return {"id": user_id, "email": user_email, "created_at": created_at}
+        return {"id": user_id, "email": user_email, "created_at": created_at, "avatar": avatar}
 
 
 async def update_token(user: User, token: str | None) -> None:
@@ -48,4 +49,21 @@ async def confirmed_email(email: str) -> None:
         )
         await session.execute(stmt)
         await session.commit()
+
+async def update_avatar(email, url: str) -> None:
+    async with sessionmanager.session() as session:
+        stmt = (
+            update(User)
+            .where(User.email == email)     # ✅ filter by user!
+            .values(avatar=url)
+        )
+        await session.execute(stmt)
+        await session.commit()
+    user=await get_user_by_email(email)
+    user_id = user.id
+    user_email = user.email
+    created_at = user.created_at
+    avatar = user.avatar
+    return {"id": user_id, "email": user_email, "created_at": created_at, "avatar": avatar}
+
 

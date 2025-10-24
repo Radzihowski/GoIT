@@ -11,6 +11,7 @@ class UserModel(BaseModel): # pydentic class
 
 
 class UserDb(BaseModel):
+    avatar: Optional[str]
     id: int
     email: str
     created_at: datetime
