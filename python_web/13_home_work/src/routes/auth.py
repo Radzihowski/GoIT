@@ -12,7 +12,7 @@ security = HTTPBearer()
 
 
 @router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED,
-             dependencies=[Depends(RateLimiter(times=1, seconds=60))])
+             dependencies=[Depends(RateLimiter(times=1, seconds=20))])
 async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Request):
     exist_user = await repository_users.get_user_by_email(body.email)
     if exist_user:
