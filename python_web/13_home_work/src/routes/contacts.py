@@ -1,4 +1,5 @@
 from typing import List
+from src.utils.py_logger import get_logger
 
 from fastapi import APIRouter, status, Query, Security, Depends
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -11,6 +12,7 @@ from src.schemas.contacts import ContactInfo, ContactUpdateRequest
 from src.schemas.contacts import ContactRequest, ContactResponse
 from src.services.contacts import ContactService
 
+logger = get_logger(__name__)
 router = APIRouter(prefix='/contacts', tags=["contacts"])
 security = HTTPBearer()
 @router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED,
@@ -29,6 +31,7 @@ async def create_contact(body: ContactRequest, credentials: HTTPAuthorizationCre
 async def read_contacts(credentials: HTTPAuthorizationCredentials = Security(security), skip: int = 0, limit: int = 100):
     token = credentials.credentials
     user = await auth_service.get_current_user(token)
+    logger.info(f"User ID: {user.id}")
     service = ContactService()
     response = await service.read_contacts(skip, limit, user_id=user.id)
     print(response)

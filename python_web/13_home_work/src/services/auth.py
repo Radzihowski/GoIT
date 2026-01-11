@@ -2,6 +2,7 @@ import pickle
 import redis
 from datetime import datetime, timedelta, UTC
 from typing import Optional
+from src.utils.py_logger import get_logger
 
 from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -13,7 +14,7 @@ from src.conf.config import settings
 from src.database.db import get_async_session
 from src.repository import users as repository_users
 
-
+logger = get_logger(__name__)
 class Auth:
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     SECRET_KEY = settings.secret_key
@@ -65,7 +66,7 @@ class Auth:
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-
+        logger.info("get_current_user called")
         try:
             # Decode JWT
             payload = jwt.decode(token, self.SECRET_KEY, algorithms=[self.ALGORITHM])
@@ -80,12 +81,15 @@ class Auth:
 
         user = self.r.get(f"user:{email}")
         if user is None:
+            logger.info("not found in cache")
             user = await repository_users.get_user_by_email(email)
             if user is None:
                 raise credentials_exception
             self.r.set(f"user:{email}", pickle.dumps(user))
+            logger.info("saved in cache")
             self.r.expire(f"user:{email}", 900)
         else:
+            logger.info("found in cache")
             user = pickle.loads(user)
         return user
 
