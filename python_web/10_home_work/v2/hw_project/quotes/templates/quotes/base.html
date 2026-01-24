@@ -21,11 +21,18 @@
             </div>
             <div class="col-md-4">
                 <p>
-
-                    <a href="/users/signup" class="btn btn-primary">SignUp</a>
-                    <a href="/users/login" class="btn btn-primary">Login</a>
-                    <a href="/login" class="btn btn-primary">Logout</a>
-
+                    {% if user.is_authenticated %}
+                        <p>
+                        <a href="{% url 'quotes:add_quote' %}" class="btn btn-primary">Add Quote</a>
+                        <a href="{% url 'quotes:add_author' %}" class="btn btn-primary">Add Author</a>
+                        <a href="{% url 'quotes:add_tag' %}" class="btn btn-primary">Add Tag</a>
+                        </p>
+                        </h3>Welcome <b>{{ user.username }}!</b></h3>
+                        <a href="/users/logout" class="btn btn-primary">Logout</a>
+                    {% else %}
+                        <a href="/users/signup" class="btn btn-primary">SignUp</a>
+                        <a href="/users/login" class="btn btn-primary">Login</a>
+                    {% endif %}
                 </p>
             </div>
         </div>
