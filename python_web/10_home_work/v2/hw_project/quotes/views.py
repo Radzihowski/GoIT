@@ -37,6 +37,7 @@ def add_quote(request):
             new_quote = form.save(commit=False)
             new_quote.user = request.user
             new_quote.save()
+            form.save_m2m()
             return redirect(to='quotes:root')
         else:
             return render(request,'quotes/quote.html', context={'form': form})
