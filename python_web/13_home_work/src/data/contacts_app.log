@@ -1,1 +1,18 @@
 2026-01-10 07:55:23,822 [INFO] - src.services.auth - get_current_user(69) - get_current_user called
+2026-02-01 07:55:13,563 [INFO] - src.services.auth - get_current_user(69) - get_current_user called
+2026-02-01 07:55:13,566 [INFO] - src.services.auth - get_current_user(84) - not found in cache
+2026-02-01 07:55:13,570 [INFO] - src.services.auth - get_current_user(89) - saved in cache
+2026-02-07 06:28:41,951 [INFO] - src.services.auth - get_current_user(70) - get_current_user called
+2026-02-07 06:28:41,954 [INFO] - src.services.auth - get_current_user(85) - not found in cache
+2026-02-07 06:28:41,959 [INFO] - src.services.auth - get_current_user(90) - saved in cache
+2026-02-07 06:43:13,551 [INFO] - src.services.auth - get_current_user(71) - get_current_user called
+2026-02-07 06:44:14,035 [INFO] - src.services.auth - get_current_user(71) - get_current_user called
+2026-02-07 06:44:14,038 [INFO] - src.services.auth - get_current_user(88) - not found in cache
+2026-02-07 06:44:14,045 [INFO] - src.services.auth - get_current_user(93) - saved in cache
+2026-02-07 06:44:38,959 [INFO] - src.services.auth - get_current_user(71) - get_current_user called
+2026-02-07 07:05:58,152 [INFO] - src.services.auth - get_current_user(77) - get_current_user called
+2026-02-07 07:07:30,531 [INFO] - src.services.auth - get_current_user(77) - get_current_user called
+2026-02-07 07:07:30,538 [INFO] - src.services.auth - get_current_user(94) - not found in cache
+2026-02-07 07:07:30,594 [INFO] - src.services.auth - get_current_user(99) - saved in cache
+2026-02-07 07:12:48,820 [INFO] - src.services.auth - get_current_user(77) - get_current_user called
+2026-02-07 07:12:48,821 [INFO] - src.services.auth - get_current_user(102) - found in cache

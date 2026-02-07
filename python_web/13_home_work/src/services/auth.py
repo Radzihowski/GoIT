@@ -21,6 +21,13 @@ class Auth:
     ALGORITHM = settings.algorithm
     oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
     r = redis.Redis(host=settings.redis_host, port=settings.redis_port, db=0)
+    BLACKLISTED_TOKENS_KEY = "access_token:blacklist:{token}"
+
+    def add_token_to_blacklist(self, token: str):
+        self.r.set(self.BLACKLISTED_TOKENS_KEY.format(token=token), token, ex=900)
+
+    def is_token_in_blacklist(self, token: str):
+        return True if self.r.get(self.BLACKLISTED_TOKENS_KEY.format(token=token)) else False
 
     def verify_password(self, plain_password, hashed_password):
         return self.pwd_context.verify(plain_password, hashed_password)
@@ -67,6 +74,8 @@ class Auth:
             headers={"WWW-Authenticate": "Bearer"},
         )
         logger.info("get_current_user called")
+        if self.is_token_in_blacklist(token):
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has been revoked")
         try:
             # Decode JWT
             payload = jwt.decode(token, self.SECRET_KEY, algorithms=[self.ALGORITHM])

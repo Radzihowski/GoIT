@@ -63,3 +63,8 @@ async def confirmed_email(token: str):
     await repository_users.confirmed_email(email)
     return {"message": "Email confirmed"}
 
+@router.get('/logout', status_code=status.HTTP_200_OK, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
+async def logout(credentials: HTTPAuthorizationCredentials = Security(security)):
+    token = credentials.credentials
+    auth_service.add_token_to_blacklist(token)
+    return {"message": "Successfully logged out"}
