@@ -29,12 +29,14 @@ app.include_router(users.router, prefix='/api')
 
 @app.on_event("startup")
 async def startup():
+    """ Startup settings for the application, including Redis connection for rate limiting."""
     r = await redis.Redis(host=settings.redis_host, port=settings.redis_port, db=0, encoding="utf-8",
                           decode_responses=True)
     await FastAPILimiter.init(r)
 
 @app.get("/")
 def read_root():
+    """"Function for the root page, returns a simple message."""
     return {"message": "Hello World"}
 
 if __name__ == "__main__":

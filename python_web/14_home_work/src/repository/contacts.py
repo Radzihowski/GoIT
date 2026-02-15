@@ -8,9 +8,23 @@ from src.schemas.contacts import ContactUpdateRequest
 
 
 class ContactCRUD:
-    # Function to add a user to the database
+    """
+    CRUD operations for Contact model, including creation, reading, updating, deleting,
+    searching, and finding upcoming birthdays for contacts.
+    """
+
     @staticmethod
-    async def create_contact(body, user_id:int):
+    async def create_contact(body, user_id: int):
+        """
+        Create a new contact for a user.
+
+        Args:
+            body: Contact creation request data.
+            user_id (int): The ID of the user to associate the contact with.
+
+        Returns:
+            int: The ID of the newly created contact.
+        """
         async with sessionmanager.session() as session:
             async with session.begin():
                 new_user = Contact(first_name=body.first_name, last_name=body.last_name,
@@ -23,7 +37,17 @@ class ContactCRUD:
             return user_id
 
     @staticmethod
-    async def read_contact(contact_id:int, user_id:int):
+    async def read_contact(contact_id: int, user_id: int):
+        """
+        Retrieve a contact by its ID and user ID.
+
+        Args:
+            contact_id (int): The ID of the contact to retrieve.
+            user_id (int): The ID of the user who owns the contact.
+
+        Returns:
+            Contact or None: The contact object if found, else None.
+        """
         async  with sessionmanager.session() as session:
             query = select(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             print(query)
@@ -32,7 +56,18 @@ class ContactCRUD:
             return result.scalar()
 
     @staticmethod
-    async def read_contacts(skip:int, limit:int, user_id:int):
+    async def read_contacts(skip: int, limit: int, user_id: int):
+        """
+        Retrieve a list of contacts for a user with pagination.
+
+        Args:
+            skip (int): Number of records to skip.
+            limit (int): Maximum number of records to return.
+            user_id (int): The ID of the user whose contacts to retrieve.
+
+        Returns:
+            Sequence[Contact]: List of contact objects.
+        """
         async with sessionmanager.session() as session:
             query = select(Contact).where(Contact.user_id==user_id).offset(skip).limit(limit)
             print(query)
@@ -41,7 +76,17 @@ class ContactCRUD:
             return result.scalars()
 
     @staticmethod
-    async def delete_contact(contact_id:int, user_id:int):
+    async def delete_contact(contact_id: int, user_id: int):
+        """
+        Delete a contact by its ID and user ID.
+
+        Args:
+            contact_id (int): The ID of the contact to delete.
+            user_id (int): The ID of the user who owns the contact.
+
+        Returns:
+            int: Number of rows deleted (0 or 1).
+        """
         async with sessionmanager.session() as session:
             query = delete(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             print(query)
@@ -52,6 +97,15 @@ class ContactCRUD:
 
     @staticmethod
     async def check_email(email):
+        """
+        Check if a contact with the given email exists.
+
+        Args:
+            email (str): The email address to check.
+
+        Returns:
+            bool: True if the email exists, False otherwise.
+        """
         async with sessionmanager.session() as session:
             query = select(exists().where(Contact.email==email))
             print(query)
@@ -60,7 +114,18 @@ class ContactCRUD:
             return result.scalar()
 
     @staticmethod
-    async def update_contact(contact_id, body: ContactUpdateRequest, user_id:int):
+    async def update_contact(contact_id, body: ContactUpdateRequest, user_id: int):
+        """
+        Update an existing contact's information.
+
+        Args:
+            contact_id (int): The ID of the contact to update.
+            body (ContactUpdateRequest): The updated contact data.
+            user_id (int): The ID of the user who owns the contact.
+
+        Returns:
+            Contact or None: The updated contact object if found, else None.
+        """
         async with sessionmanager.session() as session:
             query = select(Contact).where(Contact.id == contact_id, Contact.user_id==user_id)
             result = await session.execute(query)
@@ -87,7 +152,21 @@ class ContactCRUD:
             return result.scalar()
 
     @staticmethod
-    async def search_contacts(skip:int, limit:int, first_name:str, last_name:str, email:str, user_id:int):
+    async def search_contacts(skip: int, limit: int, first_name: str, last_name: str, email: str, user_id: int):
+        """
+        Search for contacts by first name, last name, or email for a user with pagination.
+
+        Args:
+            skip (int): Number of records to skip.
+            limit (int): Maximum number of records to return.
+            first_name (str): First name filter (partial match).
+            last_name (str): Last name filter (partial match).
+            email (str): Email filter (partial match).
+            user_id (int): The ID of the user whose contacts to search.
+
+        Returns:
+            List[Contact]: List of matching contact objects.
+        """
         async  with (sessionmanager.session() as session):
             filters = [Contact.user_id==user_id]
             if first_name:
@@ -108,6 +187,18 @@ class ContactCRUD:
 
     @staticmethod
     async def upcoming_dob(skip: int, limit: int, days_range: int, user_id: int):
+        """
+        Retrieve contacts with upcoming birthdays within a given range of days for a user.
+
+        Args:
+            skip (int): Number of records to skip.
+            limit (int): Maximum number of records to return.
+            days_range (int): Number of days ahead to look for birthdays.
+            user_id (int): The ID of the user whose contacts to check.
+
+        Returns:
+            List[Contact]: List of contacts with upcoming birthdays.
+        """
         async with sessionmanager.session() as session:
             today = datetime.today().date()
             target = today + timedelta(days=days_range)
