@@ -14,6 +14,19 @@ security = HTTPBearer()
 @router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED,
              dependencies=[Depends(RateLimiter(times=1, seconds=20))])
 async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Request):
+    """
+    Register a new user, hash their password, and send a confirmation email.
+
+    Args:
+        body (UserModel): The user registration data.
+        background_tasks (BackgroundTasks): FastAPI background task manager for sending email.
+        request (Request): The incoming HTTP request (used for base URL).
+
+    Returns:
+        dict: User info and detail message.
+    Raises:
+        HTTPException: If the user already exists.
+    """
     exist_user = await repository_users.get_user_by_email(body.email)
     if exist_user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Account already exists")
@@ -25,6 +38,17 @@ async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Re
 
 @router.post("/login", response_model=TokenModel, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def login(body: UserModel):
+    """
+    Authenticate a user and return JWT access and refresh tokens.
+
+    Args:
+        body (UserModel): The user login credentials.
+
+    Returns:
+        dict: Access and refresh tokens with token type.
+    Raises:
+        HTTPException: If email or password is invalid.
+    """
     user = await repository_users.get_user_by_email(body.email)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email")
@@ -39,6 +63,17 @@ async def login(body: UserModel):
 
 @router.get('/refresh_token', response_model=TokenModel, dependencies=[Depends(RateLimiter(times=2, seconds=60))])
 async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(security)):
+    """
+    Refresh JWT tokens using a valid refresh token.
+
+    Args:
+        credentials (HTTPAuthorizationCredentials): The HTTP bearer credentials containing the refresh token.
+
+    Returns:
+        dict: New access and refresh tokens with token type.
+    Raises:
+        HTTPException: If the refresh token is invalid.
+    """
     token = credentials.credentials
     email = await auth_service.decode_refresh_token(token)
     user = await repository_users.get_user_by_email(email)
@@ -54,6 +89,17 @@ async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(sec
 
 @router.get('/confirmed_email/{token}', status_code=status.HTTP_200_OK, dependencies=[Depends(RateLimiter(times=1, seconds=60))])
 async def confirmed_email(token: str):
+    """
+    Confirm a user's email address using a verification token.
+
+    Args:
+        token (str): The email confirmation token.
+
+    Returns:
+        dict: Confirmation message.
+    Raises:
+        HTTPException: If verification fails or user not found.
+    """
     email = await auth_service.get_email_from_token(token)
     user = await repository_users.get_user_by_email(email)
     if user is None:
@@ -65,6 +111,15 @@ async def confirmed_email(token: str):
 
 @router.get('/logout', status_code=status.HTTP_200_OK, dependencies=[Depends(RateLimiter(times=5, seconds=60))])
 async def logout(credentials: HTTPAuthorizationCredentials = Security(security)):
+    """
+    Log out the user by blacklisting the current access token.
+
+    Args:
+        credentials (HTTPAuthorizationCredentials): The HTTP bearer credentials containing the token to blacklist.
+
+    Returns:
+        dict: Logout success message.
+    """
     token = credentials.credentials
     auth_service.add_token_to_blacklist(token)
     return {"message": "Successfully logged out"}
