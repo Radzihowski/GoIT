@@ -25,7 +25,7 @@ REST API main
    :show-inheritance:
 
 REST API repository Contacts
-=========================
+============================
 .. automodule:: src.repository.contacts
   :members:
   :undoc-members:
