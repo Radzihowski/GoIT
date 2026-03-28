@@ -2,7 +2,7 @@ import re
 from datetime import date, timedelta, datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator, ConfigDict
 
 
 class ContactRequest(BaseModel):  # визначаємо вхідні дані
@@ -35,9 +35,7 @@ class ContactRequest(BaseModel):  # визначаємо вхідні дані
 
 class ContactResponse(BaseModel):  # визначаємо вихідні дані повертає айдішнік інт
     id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class ContactInfo(BaseModel):
     id: int

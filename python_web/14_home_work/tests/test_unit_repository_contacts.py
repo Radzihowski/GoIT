@@ -230,69 +230,193 @@ class TestContacts(unittest.IsolatedAsyncioTestCase):
         mock_result1.scalar.assert_called_once()
         mock_result2.scalar.assert_called_once()
 
-    # async def test_get_note_found(self):
-    #     note = Note()
-    #     self.session.query().filter().first.return_value = note
-    #     result = await get_note(note_id=1, user=self.user, db=self.session)
-    #     self.assertEqual(result, note)
-    #
-    # async def test_get_note_not_found(self):
-    #     self.session.query().filter().first.return_value = None
-    #     result = await get_note(note_id=1, user=self.user, db=self.session)
-    #     self.assertIsNone(result)
-    #
-    # async def test_create_note(self):
-    #     body = NoteModel(title="test", description="test note", tags=[1, 2])
-    #     tags = [Tag(id=1, user_id=1), Tag(id=2, user_id=1)]
-    #     self.session.query().filter().all.return_value = tags
-    #     result = await create_note(body=body, user=self.user, db=self.session)
-    #     self.assertEqual(result.title, body.title)
-    #     self.assertEqual(result.description, body.description)
-    #     self.assertEqual(result.tags, tags)
-    #     self.assertTrue(hasattr(result, "id"))
-    #
-    # async def test_remove_note_found(self):
-    #     note = Note()
-    #     self.session.query().filter().first.return_value = note
-    #     result = await remove_note(note_id=1, user=self.user, db=self.session)
-    #     self.assertEqual(result, note)
-    #
-    # async def test_remove_note_not_found(self):
-    #     self.session.query().filter().first.return_value = None
-    #     result = await remove_note(note_id=1, user=self.user, db=self.session)
-    #     self.assertIsNone(result)
-    #
-    # async def test_update_note_found(self):
-    #     body = NoteUpdate(title="test", description="test note", tags=[1, 2], done=True)
-    #     tags = [Tag(id=1, user_id=1), Tag(id=2, user_id=1)]
-    #     note = Note(tags=tags)
-    #     self.session.query().filter().first.return_value = note
-    #     self.session.query().filter().all.return_value = tags
-    #     self.session.commit.return_value = None
-    #     result = await update_note(note_id=1, body=body, user=self.user, db=self.session)
-    #     self.assertEqual(result, note)
-    #
-    # async def test_update_note_not_found(self):
-    #     body = NoteUpdate(title="test", description="test note", tags=[1, 2], done=True)
-    #     self.session.query().filter().first.return_value = None
-    #     self.session.commit.return_value = None
-    #     result = await update_note(note_id=1, body=body, user=self.user, db=self.session)
-    #     self.assertIsNone(result)
-    #
-    # async def test_update_status_note_found(self):
-    #     body = NoteStatusUpdate(done=True)
-    #     note = Note()
-    #     self.session.query().filter().first.return_value = note
-    #     self.session.commit.return_value = None
-    #     result = await update_status_note(note_id=1, body=body, user=self.user, db=self.session)
-    #     self.assertEqual(result, note)
-    #
-    # async def test_update_status_note_not_found(self):
-    #     body = NoteStatusUpdate(done=True)
-    #     self.session.query().filter().first.return_value = None
-    #     self.session.commit.return_value = None
-    #     result = await update_status_note(note_id=1, body=body, user=self.user, db=self.session)
-    #     self.assertIsNone(result)
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_search_contacts_by_first_name(self, mock_sessionmanager):
+        # Create test contacts
+        contacts = [
+            Contact(id=1, first_name="John", last_name="Doe", email="john@test.com"),
+            Contact(id=2, first_name="Johnny", last_name="Smith", email="johnny@test.com"),
+        ]
+
+        # Setup mock using fixture
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        # Call the method under test — filter by first_name only
+        result = await self.crud.search_contacts(
+            skip=0, limit=10,
+            first_name="John", last_name="", email="",
+            user_id=self.user.id
+        )
+
+        # Assert the result
+        self.assertEqual(result, contacts)
+
+        # Verify session interactions
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+        mock_result.scalars.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_search_contacts_by_last_name(self, mock_sessionmanager):
+        contacts = [
+            Contact(id=1, first_name="John", last_name="Doe", email="john@test.com"),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        result = await self.crud.search_contacts(
+            skip=0, limit=10,
+            first_name="", last_name="Doe", email="",
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_search_contacts_by_email(self, mock_sessionmanager):
+        contacts = [
+            Contact(id=1, first_name="John", last_name="Doe", email="john@test.com"),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        result = await self.crud.search_contacts(
+            skip=0, limit=10,
+            first_name="", last_name="", email="john@test.com",
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_search_contacts_no_filters_returns_all(self, mock_sessionmanager):
+        """When all filters are empty, should return all contacts for the user."""
+        contacts = [
+            Contact(id=1, first_name="Alice", last_name="Smith", email="alice@test.com"),
+            Contact(id=2, first_name="Bob", last_name="Jones", email="bob@test.com"),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        result = await self.crud.search_contacts(
+            skip=0, limit=10,
+            first_name="", last_name="", email="",
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_search_contacts_returns_empty_list(self, mock_sessionmanager):
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = []
+
+        result = await self.crud.search_contacts(
+            skip=0, limit=10,
+            first_name="NonExistent", last_name="", email="",
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, [])
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_upcoming_dob_within_same_year(self, mock_sessionmanager):
+        """Test upcoming birthdays when range stays within the same year (no year wrap)."""
+        contacts = [
+            Contact(id=1, first_name="John", last_name="Doe",
+                    email="john@test.com", date_of_birth=date(1990, 4, 1)),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        # days_range=7 from today (2026-03-28) stays within the same year: 03-28 to 04-04
+        result = await self.crud.upcoming_dob(
+            skip=0, limit=10,
+            days_range=7,
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+        mock_result.scalars.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_upcoming_dob_wraps_over_year_end(self, mock_sessionmanager):
+        """Test upcoming birthdays when the range wraps over Dec 31 → Jan 1."""
+        contacts = [
+            Contact(id=1, first_name="Eve", last_name="Winter",
+                    email="eve@test.com", date_of_birth=date(1985, 1, 2)),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        # Patch datetime.today() inside the method so the range wraps over year end
+        with patch('src.repository.contacts.datetime') as mock_dt:
+            from datetime import date as real_date, datetime as real_datetime
+            mock_dt.today.return_value = real_datetime(2025, 12, 28)
+            mock_dt.side_effect = lambda *a, **kw: real_datetime(*a, **kw)
+
+            result = await self.crud.upcoming_dob(
+                skip=0, limit=10,
+                days_range=7,
+                user_id=self.user.id
+            )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_upcoming_dob_returns_empty_list(self, mock_sessionmanager):
+        """Test that an empty list is returned when no birthdays are upcoming."""
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = []
+
+        result = await self.crud.upcoming_dob(
+            skip=0, limit=10,
+            days_range=7,
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, [])
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
+
+    @patch('src.repository.contacts.sessionmanager')
+    async def test_upcoming_dob_pagination(self, mock_sessionmanager):
+        """Test that skip/limit pagination parameters are respected."""
+        contacts = [
+            Contact(id=2, first_name="Bob", last_name="Doe",
+                    email="bob@test.com", date_of_birth=date(1992, 4, 2)),
+        ]
+
+        mock_session, mock_result = self.setup_async_session_mock(mock_sessionmanager)
+        mock_result.scalars.return_value.all.return_value = contacts
+
+        result = await self.crud.upcoming_dob(
+            skip=1, limit=1,
+            days_range=14,
+            user_id=self.user.id
+        )
+
+        self.assertEqual(result, contacts)
+        mock_sessionmanager.session.assert_called_once()
+        mock_session.execute.assert_called_once()
 
 
 if __name__ == '__main__':

@@ -30,7 +30,7 @@ class ContactCRUD:
                 new_user = Contact(first_name=body.first_name, last_name=body.last_name,
                                    email=body.email, phone=body.phone, date_of_birth=body.date_of_birth,
                                    info=body.info, user_id=user_id)
-                session.add(new_user)
+                await session.add(new_user)
                 await session.flush()
                 user_id = new_user.id
             print(f"User {body.first_name} added successfully!")

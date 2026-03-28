@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
 
 
@@ -18,10 +18,11 @@ class Settings(BaseSettings):
     cloudinary_api_key: str= 'test_cloudinary_api_key'
     cloudinary_api_secret: str= 'test_cloudinary_api_secret'
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        extra = "allow"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="allow"
+    )
 
 
 settings = Settings()
