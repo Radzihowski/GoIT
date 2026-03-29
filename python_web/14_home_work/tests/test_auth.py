@@ -1,21 +1,23 @@
 from unittest.mock import MagicMock
-
 from src.database.models import User
-
 
 def test_create_user(client, user, monkeypatch):
     mock_send_email = MagicMock()
     monkeypatch.setattr("src.routes.auth.send_email", mock_send_email)
+
     response = client.post(
         "/api/auth/signup",
         json=user,
     )
+    print(f"Response status code: {response}")
+
     assert response.status_code == 201, response.text
     data = response.json()
+    print(f"Response data: {data}")
     assert data["user"]["email"] == user.get("email")
     assert "id" in data["user"]
 
-''''
+
 def test_repeat_create_user(client, user):
     response = client.post(
         "/api/auth/signup",
@@ -29,7 +31,7 @@ def test_repeat_create_user(client, user):
 def test_login_user_not_confirmed(client, user):
     response = client.post(
         "/api/auth/login",
-        data={"username": user.get('email'), "password": user.get('password')},
+        json=user,
     )
     assert response.status_code == 401, response.text
     data = response.json()
@@ -42,7 +44,7 @@ def test_login_user(client, session, user):
     session.commit()
     response = client.post(
         "/api/auth/login",
-        data={"username": user.get('email'), "password": user.get('password')},
+        json=user,
     )
     assert response.status_code == 200, response.text
     data = response.json()
@@ -52,7 +54,7 @@ def test_login_user(client, session, user):
 def test_login_wrong_password(client, user):
     response = client.post(
         "/api/auth/login",
-        data={"username": user.get('email'), "password": 'password'},
+        json={"email": user.get('email'), "password": 'password'},
     )
     assert response.status_code == 401, response.text
     data = response.json()
@@ -62,9 +64,8 @@ def test_login_wrong_password(client, user):
 def test_login_wrong_email(client, user):
     response = client.post(
         "/api/auth/login",
-        data={"username": 'email', "password": user.get('password')},
+        json={"email": 'email', "password": user.get('password')},
     )
     assert response.status_code == 401, response.text
     data = response.json()
     assert data["detail"] == "Invalid email"
-'''

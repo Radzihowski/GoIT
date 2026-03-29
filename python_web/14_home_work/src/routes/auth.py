@@ -12,7 +12,8 @@ security = HTTPBearer()
 
 
 @router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED,
-             dependencies=[Depends(RateLimiter(times=1, seconds=20))])
+             dependencies=[Depends(RateLimiter(times=1, seconds=20))]
+             )
 async def signup(body: UserModel, background_tasks: BackgroundTasks, request: Request):
     """
     Register a new user, hash their password, and send a confirmation email.
@@ -54,6 +55,8 @@ async def login(body: UserModel):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email")
     if not auth_service.verify_password(body.password, user.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid password")
+    if user.confirmed is False:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Email not confirmed")
     # Generate JWT
     access_token = await auth_service.create_access_token(data={"sub": user.email})
     refresh_token = await auth_service.create_refresh_token(data={"sub": user.email})
