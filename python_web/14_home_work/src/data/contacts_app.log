@@ -16,3 +16,96 @@
 2026-02-07 07:07:30,594 [INFO] - src.services.auth - get_current_user(99) - saved in cache
 2026-02-07 07:12:48,820 [INFO] - src.services.auth - get_current_user(77) - get_current_user called
 2026-02-07 07:12:48,821 [INFO] - src.services.auth - get_current_user(102) - found in cache
+2026-04-04 07:33:02,069 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:33:52,334 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:34:14,130 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:40:51,640 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:42:47,958 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:44:29,034 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:44:29,756 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:44:29,778 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:44:29,779 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:44:29,801 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:44:29,802 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:44:29,802 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:44:29,829 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:44:29,829 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:44:29,849 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:44:29,871 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,109 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:45:28,864 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,886 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,887 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:45:28,908 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,908 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:45:28,909 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:45:28,931 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,931 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:45:28,952 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:45:28,974 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:29,158 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:47:29,901 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:29,927 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:29,928 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:47:29,948 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:29,948 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:47:29,949 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:47:29,974 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:29,974 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:47:29,997 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:47:30,020 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:25,603 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:48:26,301 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:26,325 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:26,325 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:48:26,350 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:26,350 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:48:26,351 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:48:26,372 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:26,373 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:48:26,394 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:26,418 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,078 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:48:42,798 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,819 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,820 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:48:42,840 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,842 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:48:42,842 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:48:42,864 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,865 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:48:42,886 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:48:42,907 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:33,969 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:53:34,858 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:34,879 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:34,880 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:53:34,903 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:34,903 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:53:34,904 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:53:34,925 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:34,926 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:53:34,950 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:53:34,973 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:13,971 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:55:14,831 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:14,851 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:14,852 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:55:14,874 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:14,874 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:55:14,875 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:55:14,896 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:14,896 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:55:14,916 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:55:14,936 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:42,597 [INFO] - src.routes.contacts - read_contacts(82) - User ID: 1
+2026-04-04 07:58:43,522 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:43,543 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:43,545 [INFO] - src.services.auth - get_current_user(101) - found in cache
+2026-04-04 07:58:43,568 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:43,569 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:58:43,570 [INFO] - src.services.auth - get_current_user(98) - saved in cache
+2026-04-04 07:58:43,592 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:43,592 [INFO] - src.services.auth - get_current_user(93) - not found in cache
+2026-04-04 07:58:43,614 [INFO] - src.services.auth - get_current_user(76) - get_current_user called
+2026-04-04 07:58:43,637 [INFO] - src.services.auth - get_current_user(76) - get_current_user called

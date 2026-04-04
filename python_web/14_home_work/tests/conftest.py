@@ -123,3 +123,13 @@ def client(session):
 @pytest.fixture(scope="module")
 def user():
     return {"email": "deadpool@example.com", "password": "123456789"}
+
+
+@pytest.fixture(scope="module")
+def access_token(user):
+    """Generate a real JWT access token for use in route integration tests."""
+    from src.services.auth import auth_service
+    import asyncio
+    token = asyncio.run(auth_service.create_access_token(data={"sub": user["email"]}))
+    return token
+

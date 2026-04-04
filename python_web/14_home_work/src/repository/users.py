@@ -23,9 +23,7 @@ async def get_user_by_email(email: str) -> User:
     """
     async with sessionmanager.session() as session:
         query = select(User).where(User.email == email)
-        print(query)
         result = await session.execute(query)
-        print(result)
         return result.scalar()
 
 
